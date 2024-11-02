@@ -55,7 +55,6 @@ class NPC extends Player {
         } while (roll < condProb * multiplier) {
             bidNum++;
             condProb = binCondCumProb(totalDice, bidNum+1, bidMin, this.p);
-            roll = Math.random()
         }
         return bidNum;
     }
