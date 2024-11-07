@@ -8,7 +8,7 @@ export default class NPC extends Player {
     }
     newTurn() {
         // Rolls NPC's dice and records results in NPC's guesses
-        this.roll_dice();
+        this.rollDice();
         this.guesses = {...this.rolled};
     }
     evaluateBid(lastBid) {
