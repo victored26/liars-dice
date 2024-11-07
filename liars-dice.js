@@ -2,7 +2,7 @@ import Settings from './settings.js'
 import Player from './player.js'
 import NPC from './npc.js'
 
-class LiarsDice {
+export default class LiarsDice {
     constructor() {
         this.settings = new Settings();
         this.players = new Array(
@@ -13,14 +13,6 @@ class LiarsDice {
             );
         this.turn = Math.floor(Math.random() * this.players.length);
         this.gameOver = false;
-    }
-    mainLoop() {
-        while (!this.gameOver) {
-            this.startTurn();
-            this.gameLoop();
-            this.bidCheck();
-            this.endTurn();
-        }
     }
     startTurn() {
         this.turnOver = false;
@@ -33,8 +25,18 @@ class LiarsDice {
                 this.players[i].newTurn();
                 }
             }
-        this.totalRolled = this.players[0].totalRolled
+        this.totalRolled = this.players[0].totalRolled;
         this.userRolled = this.players[0].rolled;
+        }    
+    /*mainLoop() {
+        while (!this.gameOver) {
+            this.startTurn();
+            this.gameLoop();
+            this.bidCheck();
+            this.endTurn();
+        }
+    }
+    
     }
     gameLoop() {
         while (!this.turnOver) {
@@ -61,8 +63,13 @@ class LiarsDice {
         if (this.totalRolled[this.lastBid['face']] >= this.lastBid['number']) {
 
         }
-    }
+    } */
 }
+
+//const liarsDice = LiarsDice();
+//document.getElementById("userRolled").innerHTML = liarsDice.userRolled;
+//document.getElementById("totalRolled").innerHTML = liarsDice.totalRolled;
+
 
 /*
 

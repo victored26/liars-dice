@@ -24,7 +24,7 @@ function _binCumProb(total, n, p) {
     return sum;
 }
 
-function binCondCumProb(total, n, k, p) {
+export function binCondCumProb(total, n, k, p) {
     // the probability of at least n P(X >= n) successes assuming k successes,
     // P(X >= n | X >= k) = P(X => n) / P(X >= k), where X ~ Bin(total,p)
     return _binCumProb(total, n, p) / _binCumProb(total, k, p);

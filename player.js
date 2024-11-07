@@ -1,13 +1,13 @@
-class Player {
-    totalDice = 0;
-    totalRolled = {};
+export default class Player {
+    static totalDice = 0;
+    static totalRolled = {};
     constructor(game, name="Player") {
         // Initializes the player
         this.active = true;
         this.settings = game.settings;
         this.name = name;
         this.numDice = this.settings.numDice;
-        totalDice += this.numDice;
+        Player.totalDice += this.numDice;
         this.endTurn();
     }
     rollDice() {
@@ -15,7 +15,7 @@ class Player {
         for (let die = 1; die < this.numDice + 1; die++){
             let face = Math.floor(Math.random() * this.settings.faces) + 1;
             this.rolled[face]++;
-            totalRolled[face] ? totalRolled[face]++ : totalRolled[face] = 1;
+            Player.totalRolled[face] ? Player.totalRolled[face]++ : Player.totalRolled[face] = 1;
         }
     }
     placeBid(number, face) {
@@ -26,7 +26,7 @@ class Player {
         /* Removes one of the player's dice. If player runs out of dice, 
         flags the player as inactive */
         this.numDice--;
-        this.totalDice--;
+        Player.totalDice--;
         if (this.numDice == 0) {
             this.active = false;
         }

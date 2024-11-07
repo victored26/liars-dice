@@ -7,20 +7,25 @@
 
 <h1>Liar's Dice</h1>
 
-<p>Every player starts the game with five dice. Each round, the players roll their dice. 
-Players are only permitted to look at their own results. 
-The first player begins the bidding by announcing any face value 
-and the minimum number of dice on the table they believe 
-rolled this face value. 
-The next player must then either challenge the bid, or make a bid of their own. 
-If the bid is challenge, the loser loses a die and the round ends. 
-If the loser of the previous round did not run out of dice, 
-then they begin the bidding on the new round. 
-If the player chooses to makea bid, then that bid must consist of 
-either a larger minimum number of dice on the table of any face value, 
-or, if they choose to stick to the previously announced minimum number of dice, 
-of a higher face value. 
-A player wins if everyone else on the table lost all their dice.</p>
+<p>
+    Every player starts the game with five dice. Each round, the players roll 
+    their dice. Players are only permitted to look at their own results. 
+    The first player begins the bidding by announcing any face value 
+    and the minimum number of dice on the table they believe 
+    rolled this face value. 
+    The next player must then either challenge the bid, or make a bid of their own. 
+    If the bid is challenge, the loser loses a die and the round ends. 
+    If the loser of the previous round did not run out of dice, 
+    then they begin the bidding on the new round. 
+    If the player chooses to makea bid, then that bid must consist of 
+    either a larger minimum number of dice on the table of any face value, 
+    or, if they choose to stick to the previously announced minimum number of dice, 
+    of a higher face value. 
+    A player wins if everyone else on the table lost all their dice.
+</p>
+
+<p id="userRolled"></p>
+<p id="totalRolled"></p>
 
 <select id="selectNumber">
     <option>Choose a number</option>
@@ -30,18 +35,11 @@ A player wins if everyone else on the table lost all their dice.</p>
     <option>Choose a face value</option>
 </select>
 
-<script>
-var myArray = new Array("1", "2", "3", "4", "5");
+<button type="button" onclick="myFunction()">Click Me!</button>
 
+<script type="module" src="script.js"></script>
 
-// Get dropdown element from DOM
-var dropdown = document.getElementById("selectNumber");
-
-// Loop through the array
-for (var i = 0; i < myArray.length; ++i) {
-    // Append the element to the end of Array list
-    dropdown[dropdown.length] = new Option(myArray[i], myArray[i]);
-}
-</script>
 </body>
 </html>
+  
+  

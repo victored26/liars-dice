@@ -1,4 +1,4 @@
-class Settings {
+export default class Settings {
     constructor() {
         // Game Settings
         this.numDice = 5;

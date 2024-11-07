@@ -1,7 +1,7 @@
 import Player from './player.js'
 import { binCondCumProb } from './probability.js'
 
-class NPC extends Player {
+export default class NPC extends Player {
     constructor(game, name="Player") {
         super(game, name);
         this.p = 1 / this.settings.faces;
@@ -23,7 +23,7 @@ class NPC extends Player {
         }
 
         // Determine conditional probability given NPC assessment
-        let condProb = binCondCumProb(totalDice, number, guess_number, this.p);
+        let condProb = binCondCumProb(Player.totalDice, number, guess_number, this.p);
         condProb += this.settings.bidEvalOffset;
 
         // Roll a number from 0 to 1 and compare to conditional probability
@@ -50,11 +50,11 @@ class NPC extends Player {
         // Simulates the NPC bid number determination process
         do {
             let bidNum = bidMin, multiplier = this.settings.bidNumMultiplier;
-            let condProb = binCondCumProb(totalDice, bidNum+1, bidMin, this.p);
+            let condProb = binCondCumProb(Player.totalDice, bidNum+1, bidMin, this.p);
             let roll = Math.random()
         } while (roll < condProb * multiplier) {
             bidNum++;
-            condProb = binCondCumProb(totalDice, bidNum+1, bidMin, this.p);
+            condProb = binCondCumProb(Player.totalDice, bidNum+1, bidMin, this.p);
         }
         return bidNum;
     }
@@ -69,7 +69,7 @@ class NPC extends Player {
         let condProb;
         let roll = Math.random(), maxProb = 0, maxFace = 0;
         for (face = faceMin; face < this.settings.faces + 1; faces++) {
-            condProb = binCondCumProb(totalDice, bidNum, this.guesses[face], this.p);
+            condProb = binCondCumProb(Player.totalDice, bidNum, this.guesses[face], this.p);
             if (condProb > roll) {
                 return face;
             }
