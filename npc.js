@@ -39,7 +39,7 @@ export default class NPC extends Player {
     makeBid(lastBid) {
         // Simulates the NPC bid determination process 
         let number = lastBid['number'], face = lastBid['face'];
-        let bidMin = face < this.seting.faces ? number : number + 1;
+        let bidMin = face < this.settings.faces ? number : number + 1;
 
         // Determine bid number
         let bidNum = this._detBidNum(bidMin);
@@ -48,11 +48,10 @@ export default class NPC extends Player {
     }
     _detBidNum(bidMin) {
         // Simulates the NPC bid number determination process
-        do {
-            let bidNum = bidMin, multiplier = this.settings.bidNumMultiplier;
+        let bidNum = bidMin, multiplier = this.settings.bidNumMultiplier;
             let condProb = binCondCumProb(Player.totalDice, bidNum+1, bidMin, this.p);
             let roll = Math.random()
-        } while (roll < condProb * multiplier) {
+        while (roll < condProb * multiplier) {
             bidNum++;
             condProb = binCondCumProb(Player.totalDice, bidNum+1, bidMin, this.p);
         }
@@ -68,7 +67,7 @@ export default class NPC extends Player {
         }
         let condProb;
         let roll = Math.random(), maxProb = 0, maxFace = 0;
-        for (face = faceMin; face < this.settings.faces + 1; faces++) {
+        for (let face = faceMin; face < this.settings.faces + 1; face++) {
             condProb = binCondCumProb(Player.totalDice, bidNum, this.guesses[face], this.p);
             if (condProb > roll) {
                 return face;

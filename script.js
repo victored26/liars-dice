@@ -1,6 +1,11 @@
 import LiarsDice from './liars-dice.js'
 
 const game = new LiarsDice();
+
+const paragraph = document.getElementById("gameStatements");
+paragraph.innerHTML = game.turn + "<br>";
+
+
 document.getElementById("clickMe").onclick = function() {startTurn()};
 
 const imageDropdown = document.getElementById('imageDropdown');
@@ -20,8 +25,13 @@ imageDropdown.addEventListener('change', () => {
 function startTurn(){
     game.startTurn();
     showUserRoll();
+    npcTurn();
 }
 
+function npcTurn() {
+    game.npcTurn();
+    paragraph.innerHTML += game.statements;
+}
 function showUserRoll(){
     const imageContainer = document.getElementById("userRoll");
     for (let face = 1; face < game.settings.faces + 1; face++) {
@@ -33,7 +43,7 @@ function showUserRoll(){
             let imageElement = document.createElement("img")
             imageElement.src = path;
             imageElement.alt = `${face}!`;
-            imageElement.style.width = "100px";
+            imageElement.style.width = "50px";
             imageContainer.appendChild(imageElement);
         }
     }

@@ -30,13 +30,13 @@ export default class Settings {
         this.statements = {
             'singleBid': "PLAYER: There is NUM FACE",
             'pluralBid': "PLAYER: There are NUM FACE",
-            'challenge': "CHALLENGER challenges BIDDER's bid/n",
-            'trueBid': "The bid was not false/n",
-            'falseBid': "The bid was false/n",
-            'lostDie': "PLAYER loses a die/n",
-            'leavesTable': "PLAYER has lost all their dice. They leave the table/n",
-            'win': "You are the only player left on the table. You win!/n",
-            'lost': "You have lost all your dice. You lose./n"
+            'challenge': "CHALLENGER challenges BIDDER's bid",
+            'trueBid': "The bid was not false",
+            'falseBid': "The bid was false",
+            'lostDie': "PLAYER loses a die",
+            'leavesTable': "PLAYER has lost all their dice. They leave the table",
+            'win': "You are the only player left on the table. You win!",
+            'lost': "You have lost all your dice. You lose."
         }
     }
 }
