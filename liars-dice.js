@@ -5,6 +5,7 @@ import NPC from './npc.js'
 export default class LiarsDice {
     constructor() {
         this.settings = new Settings();
+        this.statements = "";
         this.user = new Player(this, "Victor");
         this.players = new Array(
             this.user,
@@ -46,15 +47,20 @@ export default class LiarsDice {
         this.gameOver = (this.numPlayers == 1 || this.user != this.players[0]);
     }
     bidCheck() {
+        let bid;
         let prev_turn = (this.turn - 1) % this.numPlayers;
         let challenger = this.players[this.turn];
         let bidder = this.players[prev_turn];
+        this.challengeBidStatement();
+
         if (this.totalRolled[this.lastBid['face']] >= this.lastBid['number']) {
+            bid = true;
             challenger.loseDie();
             if (!challenger.active) {
                 this.players.splice(this.turn, 1);
             }
         } else {
+            bid = false;
             bidder.loseDie();
             if (!bidder.active) {
                 this.players.splice(prev_turn, 1);
@@ -62,9 +68,26 @@ export default class LiarsDice {
                 this.turn = prev_turn;
             }
         }
+        this.outcomeBidStatement(loser, bid);
     }
     npcMakeBid() {
         this.players[this.turn].makeBid(this.lastBid);
+
+        let text = "";
+        if (this.lastBid['number'] > 1) {
+            text = this.settings.statements['singleBid'];
+        } else {
+            text = this.settings.statements['pluralBid'];
+        }
+        if (this.lastBid['face'] < 6) {
+            text += "s/n"; 
+        } else {
+            text += "es/n";
+        }
+        text = text.replace("PLAYER", this.players[this.turn].name);
+        text = text.replace("NUM", this.lastBid['number']);
+        text = text.replace("FACE", this.lastBid['face']);
+        this.statements += text;
     }
     npcEvaluateBid() {
         // All NPC players (including the bidder) evaluate the bid
@@ -77,5 +100,23 @@ export default class LiarsDice {
                 }
         }
         this.turn = nextTurn;
-    }   
+    }  
+    
+    // <!-- Statement Methods --!>
+    challengeBidStatement(challenger, bidder) {
+        let text = this.settings.statements['challenge'];
+        text = text.replace("CHALLENGER", challenger.name);
+        text = text.replace("BIDDER", bidder.name);
+        this.statements += text;
+    }
+    outcomeBidStatement(loser, bid) {
+        let text = bid ? this.settings.statements['trueBid'] : this.settings.statements['falseBid'];
+        this.statements += text;
+
+        text = this.settings.statements['lostDie'];
+        if (!loser.active) {
+            text += this.settings.statements["leavesTable"];
+        }
+        this.statements += textreplace(/PLAYER/g, loser.name);
+    }
 } 

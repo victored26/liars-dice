@@ -1,12 +1,26 @@
 import LiarsDice from './liars-dice.js'
 
 const game = new LiarsDice();
+document.getElementById("clickMe").onclick = function() {startTurn()};
+
+const imageDropdown = document.getElementById('imageDropdown');
+const imageDropContainer = document.getElementById('selectedImage');
+
+imageDropdown.addEventListener('change', () => {
+    const selectedValue = imageDropdown.value;
+    const imageDrop = document.createElement('img');
+    imageDrop.src = selectedValue;
+    imageDrop.alt = 'Selected Image';
+
+    // Clear previous image
+    imageDropContainer.innerHTML = ''; 
+    imageDropContainer.appendChild(imageDrop);
+});
 
 function startTurn(){
     game.startTurn();
     showUserRoll();
 }
-document.getElementById("clickMe").onclick = function() {startTurn()};
 
 function showUserRoll(){
     const imageContainer = document.getElementById("userRoll");
@@ -19,26 +33,9 @@ function showUserRoll(){
             let imageElement = document.createElement("img")
             imageElement.src = path;
             imageElement.alt = `${face}!`;
-            imageElement.style.width = "150px";
+            imageElement.style.width = "100px";
             imageContainer.appendChild(imageElement);
         }
-    }
-}
-
-function showImage() {
-    const images = [
-    "./images/face_one.png",
-    "./images/face_two.png"
-    ];
-
-    const imageContainer = document.getElementById("imageContainer");
-
-    for (const img of images) {
-        const imageElement = document.createElement("img");
-        imageElement.src = img;
-        imageElement.alt = "Image";
-        imageElement.style.width = "200px"; // Optional: Set image width
-        imageContainer.appendChild(imageElement);
     }
 }
 
