@@ -52,7 +52,7 @@ export default class LiarsDice {
     }
     bidCheck() {
         let bid;
-        let prev_turn = (this.turn - 1) % this.numPlayers;
+        let prev_turn = this.turn == 0 ? this.numPlayers - 1 : this.turn - 1;
         let challenger = this.players[this.turn];
         let bidder = this.players[prev_turn];
         this.challengeBidStatement(challenger, bidder);

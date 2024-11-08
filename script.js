@@ -10,11 +10,11 @@ const userRoll = document.getElementById("userRoll");
 
 playButton.onclick = function() {
     playButton.style.display = "none";
-    startGameLoop();
+    startTurn();
     }
 challengeBidButton.onclick = function() {
-    game.bidCheck();
     toggleBidVisibility();
+    endTurn();
 }
 bidNumDropdown.addEventListener("change", showFaceOptions);
 makeBidButton.onclick = function() {userMakeBid();}
@@ -22,13 +22,11 @@ toggleBidVisibility();
 
 const game = new LiarsDice();
 
-function startGameLoop() {
-    startTurn();
-}
-
 function toggleBidVisibility(){
     if (bidNumDropdown.style.display == "none") {
-        challengeBidButton.style.display = "initial";
+        if (game.lastBid['number'] > 0) {
+            challengeBidButton.style.display = "initial";
+        }
         bidNumDropdown.style.display = "initial";
         bidFaceDropdown.style.display = "initial";
         makeBidButton.style.display = "initial";
@@ -56,6 +54,7 @@ function userMakeBid() {
     let face = Number(bidFaceDropdown.value);
     game.userMakeBid(number, face);
     gameStatements.innerText = game.statements;
+    toggleBidVisibility();
     npcTurn();
 }
 
@@ -68,13 +67,22 @@ function userTurn(){
 function npcTurn() {
     game.npcTurn();
     if (game.turnOver) {
-        game.bidCheck();
+        endTurn();
     } else {
         userTurn();
     }
     gameStatements.innerHTML = game.statements;
 }
 
+function endTurn() {
+    game.bidCheck();
+    game.endTurn();
+    game.checkEndGame();
+    gameStatements.innerHTML = game.statements;
+    if (!game.gameOver) {
+        startTurn();
+    }
+}
 function showUserRoll(){
     userRoll.innerHTML = "You rolled<br>";
     for (let face = 1; face < game.settings.faces + 1; face++) {
