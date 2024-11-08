@@ -55,7 +55,7 @@ export default class LiarsDice {
         let prev_turn = (this.turn - 1) % this.numPlayers;
         let challenger = this.players[this.turn];
         let bidder = this.players[prev_turn];
-        this.challengeBidStatement();
+        this.challengeBidStatement(challenger, bidder);
 
         if (this.totalRolled[this.lastBid['face']] >= this.lastBid['number']) {
             bid = true;
@@ -72,6 +72,7 @@ export default class LiarsDice {
                 this.turn = prev_turn;
             }
         }
+        let loser = bid ? challenger : bidder;
         this.outcomeBidStatement(loser, bid);
     }
     userMakeBid(number, face) {
@@ -135,6 +136,6 @@ export default class LiarsDice {
         if (!loser.active) {
             text += this.settings.statements["leavesTable"];
         }
-        this.statements += textreplace(/PLAYER/g, loser.name) + "<br>";
+        this.statements += text.replace(/PLAYER/g, loser.name) + "<br>";
     }
 } 

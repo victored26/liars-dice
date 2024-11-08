@@ -20,12 +20,12 @@ export default class Settings {
 
         // Game Statements
         this.faceNames = {
-            1: "One",
-            2: "Two",
-            3: "Three",
-            4: "Four",
-            5: "Five",
-            6: "Six"
+            1: "one",
+            2: "two",
+            3: "three",
+            4: "four",
+            5: "five",
+            6: "six"
         }
         this.statements = {
             'singleBid': "PLAYER: There is NUM FACE",

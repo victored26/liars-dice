@@ -5,12 +5,17 @@ const gameStatements = document.getElementById("gameStatements");
 const challengeBidButton = document.getElementById("challengeBid");
 const bidNumDropdown = document.getElementById("selectAmount");
 const bidFaceDropdown = document.getElementById("selectFace");
-const makeBidButton = document.getElementById("makeBid")
+const makeBidButton = document.getElementById("makeBid");
+const userRoll = document.getElementById("userRoll");
 
 playButton.onclick = function() {
     playButton.style.display = "none";
     startGameLoop();
     }
+challengeBidButton.onclick = function() {
+    game.bidCheck();
+    toggleBidVisibility();
+}
 bidNumDropdown.addEventListener("change", showFaceOptions);
 makeBidButton.onclick = function() {userMakeBid();}
 toggleBidVisibility();
@@ -38,10 +43,12 @@ function toggleBidVisibility(){
 function startTurn(){
     game.startTurn();
     showUserRoll();
-
-    npcTurn();
-    showNumOptions();
-    showFaceOptions();
+    if (game.turn != 0) {
+        npcTurn();
+    } else {
+        userTurn();
+    }
+    
 }
 
 function userMakeBid() {
@@ -49,15 +56,27 @@ function userMakeBid() {
     let face = Number(bidFaceDropdown.value);
     game.userMakeBid(number, face);
     gameStatements.innerText = game.statements;
+    npcTurn();
+}
+
+function userTurn(){
+    showNumOptions();
+    showFaceOptions();
+    toggleBidVisibility();
 }
 
 function npcTurn() {
     game.npcTurn();
+    if (game.turnOver) {
+        game.bidCheck();
+    } else {
+        userTurn();
+    }
     gameStatements.innerHTML = game.statements;
 }
 
 function showUserRoll(){
-    const imageContainer = document.getElementById("userRoll");
+    userRoll.innerHTML = "You rolled<br>";
     for (let face = 1; face < game.settings.faces + 1; face++) {
         if (game.userRolled[face] == 0) {
             continue;
@@ -68,7 +87,7 @@ function showUserRoll(){
             imageElement.src = path;
             imageElement.alt = `${face}!`;
             imageElement.style.width = "50px";
-            imageContainer.appendChild(imageElement);
+            userRoll.appendChild(imageElement);
         }
     }
 }
