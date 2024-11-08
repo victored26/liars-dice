@@ -27,6 +27,7 @@ export default class LiarsDice {
                 this.players[i].newTurn();
                 }
             }
+        this.totalDice = Player.totalDice;
         this.totalRolled = Player.totalRolled;
         this.userRolled = this.user.rolled;
         if (this.turn > 0) {

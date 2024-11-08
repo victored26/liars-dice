@@ -2,6 +2,10 @@ import LiarsDice from './liars-dice.js'
 
 const game = new LiarsDice();
 
+const bidNumDropdown = document.getElementById("selectAmount");
+bidNumDropdown.addEventListener("change", showFaceOptions);
+const bidFaceDropdown = document.getElementById("selectFace");
+
 const paragraph = document.getElementById("gameStatements");
 paragraph.innerHTML = game.turn + "<br>";
 
@@ -26,6 +30,7 @@ function startTurn(){
     game.startTurn();
     showUserRoll();
     npcTurn();
+    showNumOptions();
 }
 
 function npcTurn() {
@@ -48,18 +53,26 @@ function showUserRoll(){
         }
     }
 }
+function showNumOptions(){
+    let bidMinNumber = game.lastBid['number'];
+    bidMinNumber += game.lastBid['face'] < game.settings.faces ? 0 : 1;
+    bidNumDropdown.innerText = null;
+    for (let n = bidMinNumber; n < game.totalDice + 1; n++) {
+        bidNumDropdown[bidNumDropdown.length] = new Option(
+            n.toString(), n.toString());
+    }
+}
 
-// 
-var myArray = new Array("1", "2", "3", "4", "5");
-
-
-// Get dropdown element from DOM
-var dropdown = document.getElementById("selectNumber");
-
-// Loop through the array
-for (var i = 0; i < myArray.length; ++i) {
-    // Append the element to the end of Array list
-    dropdown[dropdown.length] = new Option(myArray[i], myArray[i]);
+function showFaceOptions() {
+    let bidMinFace = 1;
+    if (Number(bidNumDropdown.value) == game.lastBid['number']) {
+        bidMinFace = game.lastBid['face'] + 1;
+    }
+    bidFaceDropdown.innerText = null;
+    for (let n = bidMinFace; n < game.settings.faces + 1; n++) {
+        bidFaceDropdown[bidFaceDropdown.length] = new Option(
+            n.toString(), n.toString());
+    }
 }
 
 function myFunction() {
