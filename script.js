@@ -31,11 +31,12 @@ function startTurn(){
     showUserRoll();
     npcTurn();
     showNumOptions();
+    showFaceOptions();
 }
 
 function npcTurn() {
     game.npcTurn();
-    paragraph.innerHTML += game.statements;
+    paragraph.innerHTML = game.statements;
 }
 function showUserRoll(){
     const imageContainer = document.getElementById("userRoll");
@@ -74,9 +75,3 @@ function showFaceOptions() {
             n.toString(), n.toString());
     }
 }
-
-function myFunction() {
-    document.getElementById("demo").style.fontSize = "25px"; 
-    document.getElementById("demo").style.color = "red";
-    document.getElementById("demo").style.backgroundColor = "yellow";        
-  }
