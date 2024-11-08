@@ -1,46 +1,39 @@
 import LiarsDice from './liars-dice.js'
 
 const playButton = document.getElementById("startGame");
+const gameStatements = document.getElementById("gameStatements");
+const challengeBidButton = document.getElementById("challengeBid");
 const bidNumDropdown = document.getElementById("selectAmount");
 const bidFaceDropdown = document.getElementById("selectFace");
-const gameStatements = document.getElementById("gameStatements");
+const makeBidButton = document.getElementById("makeBid")
 
-playButton.onclick = function() {startGame()};
+playButton.onclick = function() {
+    playButton.style.display = "none";
+    startGameLoop();
+    }
 bidNumDropdown.addEventListener("change", showFaceOptions);
-toggleDropdownVisibility()
+makeBidButton.onclick = function() {userMakeBid();}
+toggleBidVisibility();
 
 const game = new LiarsDice();
 
-function startGame() {
+function startGameLoop() {
     startTurn();
 }
 
-function toggleDropdownVisibility(){
+function toggleBidVisibility(){
     if (bidNumDropdown.style.display == "none") {
+        challengeBidButton.style.display = "initial";
         bidNumDropdown.style.display = "initial";
         bidFaceDropdown.style.display = "initial";
+        makeBidButton.style.display = "initial";
     } else {
+        challengeBidButton.style.display = "none";
         bidNumDropdown.style.display = "none";
         bidFaceDropdown.style.display = "none";
+        makeBidButton.style.display = "none";
     }
 }
-
-
-document.getElementById("clickMe").onclick = function() {startTurn()};
-
-const imageDropdown = document.getElementById('imageDropdown');
-const imageDropContainer = document.getElementById('selectedImage');
-
-imageDropdown.addEventListener('change', () => {
-    const selectedValue = imageDropdown.value;
-    const imageDrop = document.createElement('img');
-    imageDrop.src = selectedValue;
-    imageDrop.alt = 'Selected Image';
-
-    // Clear previous image
-    imageDropContainer.innerHTML = ''; 
-    imageDropContainer.appendChild(imageDrop);
-});
 
 function startTurn(){
     game.startTurn();
@@ -51,10 +44,18 @@ function startTurn(){
     showFaceOptions();
 }
 
+function userMakeBid() {
+    let number = Number(bidNumDropdown.value);
+    let face = Number(bidFaceDropdown.value);
+    game.userMakeBid(number, face);
+    gameStatements.innerText = game.statements;
+}
+
 function npcTurn() {
     game.npcTurn();
     gameStatements.innerHTML = game.statements;
 }
+
 function showUserRoll(){
     const imageContainer = document.getElementById("userRoll");
     for (let face = 1; face < game.settings.faces + 1; face++) {
@@ -71,6 +72,7 @@ function showUserRoll(){
         }
     }
 }
+
 function showNumOptions(){
     let bidMinNumber = game.lastBid['number'];
     bidMinNumber += game.lastBid['face'] < game.settings.faces ? 0 : 1;

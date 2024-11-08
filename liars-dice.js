@@ -74,12 +74,34 @@ export default class LiarsDice {
         }
         this.outcomeBidStatement(loser, bid);
     }
+    userMakeBid(number, face) {
+        this.user.placeBid(number, face);
+        this.lastBid['number'] = this.user.bidNum;
+        this.lastBid['face'] = this.user.bidFace;
+        this.makeBidStatement();
+    }
     npcMakeBid() {
         let player = this.players[this.turn];
         player.makeBid(this.lastBid);
         this.lastBid['number'] = player.bidNum;
         this.lastBid['face'] = player.bidFace;
-
+        this.makeBidStatement();
+    }
+    npcEvaluateBid() {
+        // All NPC players (including the bidder) evaluate the bid
+        let nextTurn = (this.turn + 1) % this.numPlayers;
+        for (let i = 1; i < this.numPlayers; i++) {
+            if (i == nextTurn) {
+                this.turnOver = !this.players[i].evaluateBid(this.lastBid);
+            } else {
+                this.players[i].evaluateBid(this.lastBid);
+                }
+        }
+        this.turn = nextTurn;
+    }  
+    
+    // <!-- Statement Methods --!>
+    makeBidStatement() {
         let text = "";
         if (this.lastBid['number'] > 1) {
             text = this.settings.statements['pluralBid'];
@@ -99,20 +121,6 @@ export default class LiarsDice {
             );
         this.statements += text + "<br>";
     }
-    npcEvaluateBid() {
-        // All NPC players (including the bidder) evaluate the bid
-        let nextTurn = (this.turn + 1) % this.numPlayers;
-        for (let i = 1; i < this.numPlayers; i++) {
-            if (i == nextTurn) {
-                this.turnOver = !this.players[i].evaluateBid(this.lastBid);
-            } else {
-                this.players[i].evaluateBid(this.lastBid);
-                }
-        }
-        this.turn = nextTurn;
-    }  
-    
-    // <!-- Statement Methods --!>
     challengeBidStatement(challenger, bidder) {
         let text = this.settings.statements['challenge'];
         text = text.replace("CHALLENGER", challenger.name);
