@@ -1,13 +1,29 @@
 import LiarsDice from './liars-dice.js'
 
+const playButton = document.getElementById("startGame");
+const bidNumDropdown = document.getElementById("selectAmount");
+const bidFaceDropdown = document.getElementById("selectFace");
+const gameStatements = document.getElementById("gameStatements");
+
+playButton.onclick = function() {startGame()};
+bidNumDropdown.addEventListener("change", showFaceOptions);
+toggleDropdownVisibility()
+
 const game = new LiarsDice();
 
-const bidNumDropdown = document.getElementById("selectAmount");
-bidNumDropdown.addEventListener("change", showFaceOptions);
-const bidFaceDropdown = document.getElementById("selectFace");
+function startGame() {
+    startTurn();
+}
 
-const paragraph = document.getElementById("gameStatements");
-paragraph.innerHTML = game.turn + "<br>";
+function toggleDropdownVisibility(){
+    if (bidNumDropdown.style.display == "none") {
+        bidNumDropdown.style.display = "initial";
+        bidFaceDropdown.style.display = "initial";
+    } else {
+        bidNumDropdown.style.display = "none";
+        bidFaceDropdown.style.display = "none";
+    }
+}
 
 
 document.getElementById("clickMe").onclick = function() {startTurn()};
@@ -29,6 +45,7 @@ imageDropdown.addEventListener('change', () => {
 function startTurn(){
     game.startTurn();
     showUserRoll();
+
     npcTurn();
     showNumOptions();
     showFaceOptions();
@@ -36,7 +53,7 @@ function startTurn(){
 
 function npcTurn() {
     game.npcTurn();
-    paragraph.innerHTML = game.statements;
+    gameStatements.innerHTML = game.statements;
 }
 function showUserRoll(){
     const imageContainer = document.getElementById("userRoll");
