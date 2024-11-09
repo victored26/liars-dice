@@ -24,17 +24,16 @@
     A player wins if everyone else on the table lost all their dice.
 </p>
 
-<form>
-    <label for="userName">Enter your name</label><br>
+<form id="nameEntryForm">
+    <label for="userName">Enter your name:</label><br>
     <input type="text" id="userName" name="userName" value="Victor"><br><br>
-    <button type="button" id="startGame">Start Playing</button>
   </form>
+
+<button type="button" id="startGame">Start Playing</button>
 
 <div id="userRoll"></div>
 
 <p id="gameStatements"></p>
-
-<p id="totalRolled"></p>
 
 <button type="button" id="challengeBid">Challenge Bid</button>
 
@@ -47,7 +46,7 @@
 
 <button type="button" id="makeBid">Make Bid</button>
 
-
+<button type="button" id="continue">Next turn</button>
 
 <script type="module" src="script.js"></script>
 

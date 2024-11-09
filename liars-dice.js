@@ -13,13 +13,14 @@ export default class LiarsDice {
             new NPC(this, "Beanz"),
             new NPC(this, "Libby")
             );
-        this.turn = Math.floor(Math.random() * this.players.length);
+        this.numPlayers = this.players.length;
+        this.turn = Math.floor(Math.random() * this.numPlayers);
         this.gameOver = false;
     }
     startTurn() {
+        this.statements = "";
         this.turnOver = false;
         this.lastBid = {'number': 0, 'face': this.settings.faces};
-        this.numPlayers = this.players.length;
         for (let i = 0; i < this.numPlayers; i++) {
             if (i == 0) {
                 this.players[i].rollDice();
@@ -42,6 +43,7 @@ export default class LiarsDice {
         }
     }
     endTurn() {
+        this.turn = Math.floor(Math.random() * this.numPlayers);
         for (let i = 0; i < this.numPlayers; i++) {
             this.players[i].endTurn();
         }

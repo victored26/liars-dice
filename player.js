@@ -20,7 +20,8 @@ export default class Player {
     }
     placeBid(number, face) {
         // Records player's bid
-        this.bidNum = number, this.bidFace = face;
+        this.bidNum = number;
+        this.bidFace = face;
     }
     loseDie() {
         /* Removes one of the player's dice. If player runs out of dice, 
@@ -37,6 +38,7 @@ export default class Player {
         for (let face = 1; face < this.settings.faces + 1; face++){
             this.rolled[face] = 0;
         }
-        this.bidNum, this.bidFace = 0, 1;
+        this.bidNum = 0;
+        this.bidFace = 6;
     }
 }

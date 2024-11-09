@@ -1,8 +1,10 @@
 import LiarsDice from './liars-dice.js'
 
+const userNameForm = document.getElementById("nameEntryForm");
 const userName = document.getElementById("userName");
 const playButton = document.getElementById("startGame");
 const gameStatements = document.getElementById("gameStatements");
+const continueButton = document.getElementById("continue");
 const challengeBidButton = document.getElementById("challengeBid");
 const bidNumDropdown = document.getElementById("selectAmount");
 const bidFaceDropdown = document.getElementById("selectFace");
@@ -11,6 +13,7 @@ const userRoll = document.getElementById("userRoll");
 
 playButton.onclick = function() {
     playButton.style.display = "none";
+    userNameForm.style.display = "none";
     game.user.name = userName.value;
     startTurn();
     }
@@ -18,9 +21,15 @@ challengeBidButton.onclick = function() {
     toggleBidVisibility();
     endTurn();
 }
+continueButton.onclick = function() {
+    continueButton.style.display = "none";
+    gameStatements.innerText = "";
+    startTurn();
+}
 bidNumDropdown.addEventListener("change", showFaceOptions);
 makeBidButton.onclick = function() {userMakeBid();}
 toggleBidVisibility();
+continueButton.hidden = true;
 
 const game = new LiarsDice();
 
@@ -82,7 +91,7 @@ function endTurn() {
     game.checkEndGame();
     gameStatements.innerHTML = game.statements;
     if (!game.gameOver) {
-        startTurn();
+        continueButton.style.display = "initial";
     }
 }
 function showUserRoll(){
