@@ -1,5 +1,6 @@
 import LiarsDice from './liars-dice.js'
 
+const userName = document.getElementById("userName");
 const playButton = document.getElementById("startGame");
 const gameStatements = document.getElementById("gameStatements");
 const challengeBidButton = document.getElementById("challengeBid");
@@ -10,6 +11,7 @@ const userRoll = document.getElementById("userRoll");
 
 playButton.onclick = function() {
     playButton.style.display = "none";
+    game.user.name = userName.value;
     startTurn();
     }
 challengeBidButton.onclick = function() {
