@@ -6,12 +6,12 @@ export default class Settings {
 
         // Game Images
         this.images = {
-            1: "./images/face_one.png",
-            2: "./images/face_two.png",
-            3: "./images/face_three.png",
-            4: "./images/face_four.png",
-            5: "./images/face_five.png",
-            6: "./images/face_six.png"
+            1: "./images/die/face_one.png",
+            2: "./images/die/face_two.png",
+            3: "./images/die/face_three.png",
+            4: "./images/die/face_four.png",
+            5: "./images/die/face_five.png",
+            6: "./images/die/face_six.png"
         };
 
         // NPC Behaviour Settings
