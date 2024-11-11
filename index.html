@@ -3,6 +3,21 @@
 <head>
   <title>Liar's Dice</title>
 </head>
+
+<style>
+    .row {
+      display: flex;
+    }
+    
+    .column {
+      flex: 33.33%;
+      padding: 5px;
+    }
+    img {
+        border-radius: 50%;
+    }
+</style>
+
 <body>
 
 <h1>Liar's Dice</h1>
@@ -30,6 +45,18 @@
   </form>
 
 <button type="button" id="startGame">Start Playing</button>
+
+<div class="row">
+    <div class="column" id="npcOne">
+      <img src="./images/npc_1/one.png">
+    </div>
+    <div class="column" id="npcTwo">
+      <img src="./images/npc_2/eight.png">
+    </div>
+    <div class="column" id="npcThree">
+      <img src="./images/npc_3/two.png">
+    </div>
+  </div>
 
 <div id="userRoll"></div>
 
