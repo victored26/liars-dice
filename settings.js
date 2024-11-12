@@ -23,7 +23,12 @@ export default class Settings {
             7: "./images/NPC_X/seven.PNG",
             8: "./images/NPC_X/eight.PNG",
         }
-        
+        this.diceLeft = {
+            1: "./images/npc_1/die.PNG",
+            2: "./images/npc_2/die.PNG",
+            3: "./images/npc_3/die.PNG"
+        }
+
         // NPC Behaviour Settings
         this.bidEvalOffset = 0.1;
         this.bidNumMultiplier = 1;

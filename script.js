@@ -56,6 +56,7 @@ function toggleBidVisibility(){
 }
 
 function startTurn(){
+    showDiceLeft();
     game.startTurn();
     showUserRoll();
     if (game.turn != 0) {
@@ -151,4 +152,17 @@ function showNPCPortrait() {
     portraits.forEach(portrait => {
         portrait.style.display = 'initial';
     });
+}
+
+function showDiceLeft() {
+    let imgSrc;
+    let container;
+    for (let n = 1; n < game.numPlayers; n++) {
+        container = document.getElementById(`npc${n}DiceLeft`);
+        container.innerHTML = "";
+        imgSrc = game.settings.diceLeft[n]
+        for (let die = 1; die < game.players[n].numDice + 1; die++) {
+            container.innerHTML += `<img src=${imgSrc} class="diceLeft">`
+        }
+    }
 }
