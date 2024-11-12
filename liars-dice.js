@@ -6,7 +6,7 @@ export default class LiarsDice {
     constructor() {
         this.settings = new Settings();
         this.statements = "";
-        this.user = new Player(this, "User");
+        this.user = new Player(this, "Bruno");
         this.players = new Array(
             this.user,
             new NPC(this, "Libby"),

@@ -11,13 +11,20 @@ const challengeBidButton = document.getElementById("challengeBid");
 const bidNumDropdown = document.getElementById("selectAmount");
 const bidFaceDropdown = document.getElementById("selectFace");
 const makeBidButton = document.getElementById("makeBid");
+const user = document.getElementById("user");
+const userNameDisplay = document.getElementById("userNameDisplay");
 const userRoll = document.getElementById("userRoll");
 
 playButton.onclick = function() {
     playButton.style.display = "none";
+    portraitRadioForm.style.display = "none";
     userNameForm.style.display = "none";
     showNPCPortrait();
-    game.user.name = userName.value;
+    if (userName.value != "") {
+        game.user.name = userName.value;
+        userNameDisplay.innerText = userName.value;
+    }
+    user.style.display = "initial";
     startTurn();
     }
 
@@ -32,6 +39,7 @@ continueButton.onclick = function() {
     startTurn();
 }
 
+user.style.display = "none";
 bidNumDropdown.addEventListener("change", showFaceOptions);
 makeBidButton.onclick = function() {userMakeBid();}
 toggleBidVisibility();
@@ -103,18 +111,15 @@ function endTurn() {
     }
 }
 function showUserRoll(){
-    userRoll.innerHTML = "You rolled<br>";
+    let path;
+    userRoll.innerHTML = "";
     for (let face = 1; face < game.settings.faces + 1; face++) {
         if (game.userRolled[face] == 0) {
             continue;
         }
         for (let count = 1; count < game.userRolled[face] + 1; count++) {
-            let path = game.settings.dieImages[face]
-            let imageElement = document.createElement("img")
-            imageElement.src = path;
-            imageElement.alt = `${face}!`;
-            imageElement.style.width = "50px";
-            userRoll.appendChild(imageElement);
+            path = game.settings.dieImages[face];
+            userRoll.innerHTML += `<img src=${path} class="diceLeft">`;
         }
     }
 }
