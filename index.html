@@ -81,14 +81,19 @@
       font-size: large;
     }
 
-    button:hover, .dice:hover {
+    .buttonActive:hover, .dice:hover {
       box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     }
 
-    button:active {
+    .buttonActive:active {
       background-color: #3e8e41;
       box-shadow: 0 5px #666;
       transform: translateY(4px);
+    }
+
+    .buttonDisabled {
+      opacity: 0.5;
+      cursor: default;
     }
 
     .portraitRow, .diceRow {
@@ -135,6 +140,12 @@
       color: #041a6b;
     }
 
+    #userBid {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+
     #user {
       position:fixed;
       left:0px;
@@ -164,7 +175,7 @@
     of dice, of a higher face value. 
     A player wins if everyone else on the table lost all their dice.
 </p>
-
+<>
 <form id="portraitRadioForm">
  <h3>Select a portrait</h3>
 
@@ -217,7 +228,7 @@
   <br><br>
 </form>
 
-<button type="button" id="startGame">Start Playing</button>
+<button class="buttonActive" id="startGame">Start Playing</button>
 
 <div class="portraitRow">
 
@@ -246,17 +257,19 @@
 
 <p id="gameStatements"></p>
 
-<div id="userBid">
-  <button type="button" id="challengeBid">Challenge Bid</button>
+<div id="userSelectBid">
   <select id="selectAmount"><option>Choose a number</option></select>
-
   <form id="selectFace"></form>
+</div>
 
-  <button type="button" id="makeBid">Make Bid</button>
+<div id="userBid">
+  <button class="buttonDisabled" id="challengeBid">Challenge Bid</button>
+  <button class="buttonDisabled" id="makeBid">Make Bid</button>
+  <button class="buttonDisabled" id="continue">Next turn</button>
 </div>
 
 <div id="user">
-  <button type="button" id="continue">Next turn</button><hr>
+  <hr>
   <img src="/images/user/six.PNG" id="userImg" class="center">
   <p id="userNameDisplay" style ="text-align: center;">Bruno</p>
   <div class="diceRow" id="userRoll"></div><br>

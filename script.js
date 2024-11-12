@@ -27,23 +27,33 @@ playButton.onclick = function() {
     gameStatements.style.display = "block";
     user.style.display = "initial";
     startTurn();
-    }
+    toggleBidVisibility();
+}
 
 challengeBidButton.onclick = function() {
-    toggleBidVisibility();
-    endTurn();
+    if (challengeBidButton.className == "buttonActive") {
+        challengeBidButton.className = "buttonDisabled";
+        endTurn();
+    }
 }
 
 continueButton.onclick = function() {
-    continueButton.style.display = "none";
-    gameStatements.innerText = "";
-    startTurn();
+    if (continueButton.className == "buttonActive") {
+        continueButton.className = "buttonDisabled";
+        gameStatements.innerText = "";
+        startTurn();
+    }
+}
+
+makeBidButton.onclick = function() {
+    if (makeBidButton.className == "buttonActive") {
+        userMakeBid();
+    }
 }
 
 portraits.forEach(portrait => {portrait.style.display = 'none';});
 gameStatements.style.display = "none";
 bidNumDropdown.addEventListener("change", showFaceOptions);
-makeBidButton.onclick = function() {userMakeBid();}
 toggleBidVisibility();
 continueButton.style.display = "none";
 user.style.display = "none";
@@ -59,11 +69,13 @@ function toggleBidVisibility(){
         bidNumDropdown.style.display = "initial";
         selectFace.style.display = "initial";
         makeBidButton.style.display = "initial";
+        continueButton.style.display = "initial";
     } else {
         challengeBidButton.style.display = "none";
         bidNumDropdown.style.display = "none";
         selectFace.style.display = "none";
         makeBidButton.style.display = "none";
+        continueButton.style.display = "none";
     }
 }
 
@@ -84,14 +96,13 @@ function userMakeBid() {
     let face = Number(selectFace.value);
     game.userMakeBid(number, face);
     gameStatements.innerText = game.statements;
-    toggleBidVisibility();
     npcTurn();
 }
 
 function userTurn(){
+    makeBidButton.className = "buttonActive";
     showNumOptions();
     showFaceOptions();
-    toggleBidVisibility();
 }
 
 function npcTurn() {
@@ -99,6 +110,7 @@ function npcTurn() {
     if (game.turnOver) {
         endTurn();
     } else {
+        challengeBidButton.className = "buttonActive";
         userTurn();
     }
     gameStatements.innerHTML = game.statements;
@@ -110,8 +122,8 @@ function endTurn() {
     game.checkEndGame();
     gameStatements.innerHTML = game.statements;
     if (!game.gameOver) {
-        continueButton.style.display = "initial";
-    }
+        continueButton.className = "buttonActive";
+    } 
 }
 function showUserRoll(){
     let path;
