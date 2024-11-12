@@ -5,7 +5,7 @@
 </head>
 
 <style>
-    h1, h3, input[type=text], #gameDescription, #startGame {
+    p, h1, h3, input[type=text], #startGame {
       font-family: 'Courier New', Courier, monospace;
       letter-spacing: 2px;
       line-height: 1.5;
@@ -111,6 +111,29 @@
       border-radius: 0%;
       border: 2px solid;
     }
+
+    #gameStatements {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 75%;
+      padding: 12px 20px;
+      box-sizing: border-box;
+      border: 3px solid #2643a8;
+      border-radius: 10px;
+      background-color: #b5faff;
+      font-size: medium;
+      font-weight: bold;
+      color: #041a6b;
+    }
+
+    #user {
+      position:fixed;
+      left:0px;
+      bottom:50px;
+      width:100%;
+    }
+
 </style>
 
 <body>
@@ -192,33 +215,25 @@
 
   <div class="portrait" id="npc1">
     <img src="./images/npc_1/one.PNG" id="npc1Img" class="center">
-    <p id="npc1Name"></p>
+    <p id="npc1Name" style="color:red"></p>
     <div class="diceRow" id="npc1DiceLeft">
     </div>
   </div>
 
   <div class="portrait" id="npc2">
     <img src="./images/npc_2/eight.PNG" id="npc2Img" class="center">
-    <p id="npc2Name"></p>
+    <p id="npc2Name" style="color:green"></p>
     <div class="diceRow" id="npc2DiceLeft">
     </div>
   </div>
 
   <div class="portrait" id="npc3">
     <img src="./images/npc_3/two.PNG" id="npc3Img" class="center">
-    <p id="npc3Name"></p>
+    <p id="npc3Name" style="color:rgb(93, 6, 93)"></p>
     <div class="diceRow" id="npc3DiceLeft">
     </div>
   </div>
 
-</div>
-
-<div id="user">
-  <br><br>
-  <img src="/images/user/six.PNG" id="userImg" class="center">
-  <p id="userNameDisplay" style ="text-align: center;">Bruno</p>
-  <div class="diceRow" id="userRoll"></div><br>
-  <hr>
 </div>
 
 <p id="gameStatements"></p>
@@ -235,6 +250,13 @@
 <button type="button" id="makeBid">Make Bid</button>
 
 <button type="button" id="continue">Next turn</button>
+
+<div id="user">
+  <hr>
+  <img src="/images/user/six.PNG" id="userImg" class="center">
+  <p id="userNameDisplay" style ="text-align: center;">Bruno</p>
+  <div class="diceRow" id="userRoll"></div><br>
+</div>
 
 <script type="module" src="script.js"></script>
 
