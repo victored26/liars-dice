@@ -1,5 +1,6 @@
 import LiarsDice from './liars-dice.js'
 
+const portraitRadioForm = document.getElementById("portraitRadioForm");
 const userNameForm = document.getElementById("nameEntryForm");
 const userName = document.getElementById("userName");
 const playButton = document.getElementById("startGame");
