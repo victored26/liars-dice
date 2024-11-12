@@ -166,3 +166,7 @@ function showDiceLeft() {
         }
     }
 }
+
+function npcLeftTheTable(id) {
+    document.getElementById(`npc${id}Img`).style.opacity = 0.7;
+}

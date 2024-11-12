@@ -5,6 +5,15 @@
 </head>
 
 <style>
+    h1, #gameDescription {
+      font-family: 'Courier New', Courier, monospace;
+      letter-spacing: 2px;
+      line-height: 1.5;
+      color: blue
+    }
+    h1 {
+      text-align: center;
+    }
     .portraitRow, .diceRow {
       display: flex;
       text-align: center;
@@ -31,7 +40,7 @@
 
 <h1>Liar's Dice</h1>
 
-<p>
+<p id="gameDescription">
     Every player starts the game with five dice. Each round, the players roll 
     their dice. Players are only permitted to look at their own results. 
     The first player begins the bidding by announcing any face value 
