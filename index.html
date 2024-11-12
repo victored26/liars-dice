@@ -5,17 +5,25 @@
 </head>
 
 <style>
-    .row {
+    .portraitRow, .diceRow {
       display: flex;
+      text-align: center;
     }
-    .column {
-      border-radius: 50%;
+    .portrait {
       flex: 33.33%;
       padding: 5px;
+    }
+    .center, .diceLeft{
+      border-radius: 50%;
       display: block;
       margin-left: auto;
       margin-right: auto;
-      width: 50%;
+    }
+    .diceLeft {
+      width: 20px;
+      height: 20px;
+      border-radius: 0%;
+      border: 2px solid;
     }
 </style>
 
@@ -29,14 +37,14 @@
     The first player begins the bidding by announcing any face value 
     and the minimum number of dice on the table they believe 
     rolled this face value. 
-    The next player must then either challenge the bid, or make a bid of their own. 
-    If the bid is challenge, the loser loses a die and the round ends. 
+    The next player must then either challenge the bid, or make a bid of their 
+    own. If the bid is challenge, the loser loses a die and the round ends. 
     If the loser of the previous round did not run out of dice, 
     then they begin the bidding on the new round. 
     If the player chooses to makea bid, then that bid must consist of 
     either a larger minimum number of dice on the table of any face value, 
-    or, if they choose to stick to the previously announced minimum number of dice, 
-    of a higher face value. 
+    or, if they choose to stick to the previously announced minimum number 
+    of dice, of a higher face value. 
     A player wins if everyone else on the table lost all their dice.
 </p>
 
@@ -47,17 +55,46 @@
 
 <button type="button" id="startGame">Start Playing</button>
 
-<div class="row">
-    <div class="column" id="npcOne">
-      <img src="./images/npc_1/two.png">
+<div class="portraitRow">
+
+    <div class="portrait" id="npc1">
+      <img src="./images/npc_1/one.PNG" id="npc1Img" class="center">
+      <p id="npc1Name"></p>
+      <div class="diceRow">
+        <img src="./images/npc_1/die.PNG" class="diceLeft">
+        <img src="./images/npc_1/die.PNG" class="diceLeft">
+        <img src="./images/npc_1/die.PNG" class="diceLeft">
+        <img src="./images/npc_1/die.PNG" class="diceLeft">
+        <img src="./images/npc_1/die.PNG" class="diceLeft">
+      </div>
     </div>
-    <div class="column" id="npcTwo">
-      <img src="./images/npc_2/eight.png">
+
+    <div class="portrait" id="npc2">
+      <img src="./images/npc_2/eight.PNG" id="npc2Img" class="center">
+      <p id="npc2Name"></p>
+      <div class="diceRow">
+        <img src="./images/npc_2/die.PNG" class="diceLeft">
+        <img src="./images/npc_2/die.PNG" class="diceLeft">
+        <img src="./images/npc_2/die.PNG" class="diceLeft">
+        <img src="./images/npc_2/die.PNG" class="diceLeft">
+        <img src="./images/npc_2/die.PNG" class="diceLeft">
+      </div>
     </div>
-    <div class="column" id="npcThree">
-      <img src="./images/npc_3/two.png">
+
+    <div class="portrait" id="npc3">
+      <img src="./images/npc_3/two.PNG" id="npc3Img" class="center">
+      <p id="npc3Name"></p>
+      <div class="diceRow">
+        <img src="./images/npc_3/die.PNG" class="diceLeft">
+        <img src="./images/npc_3/die.PNG" class="diceLeft">
+        <img src="./images/npc_3/die.PNG" class="diceLeft">
+        <img src="./images/npc_3/die.PNG" class="diceLeft">
+        <img src="./images/npc_3/die.PNG" class="diceLeft">
+      </div>
     </div>
-  </div>
+
+</div>
+
 
 <div id="userRoll"></div>
 

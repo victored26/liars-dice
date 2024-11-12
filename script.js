@@ -3,6 +3,7 @@ import LiarsDice from './liars-dice.js'
 const userNameForm = document.getElementById("nameEntryForm");
 const userName = document.getElementById("userName");
 const playButton = document.getElementById("startGame");
+const portraits = document.querySelectorAll(".portrait");
 const gameStatements = document.getElementById("gameStatements");
 const continueButton = document.getElementById("continue");
 const challengeBidButton = document.getElementById("challengeBid");
@@ -14,22 +15,27 @@ const userRoll = document.getElementById("userRoll");
 playButton.onclick = function() {
     playButton.style.display = "none";
     userNameForm.style.display = "none";
+    showNPCPortrait();
     game.user.name = userName.value;
     startTurn();
     }
+
 challengeBidButton.onclick = function() {
     toggleBidVisibility();
     endTurn();
 }
+
 continueButton.onclick = function() {
     continueButton.style.display = "none";
     gameStatements.innerText = "";
     startTurn();
 }
+
 bidNumDropdown.addEventListener("change", showFaceOptions);
 makeBidButton.onclick = function() {userMakeBid();}
 toggleBidVisibility();
-continueButton.hidden = true;
+continueButton.style.display = "none";
+portraits.forEach(portrait => {portrait.style.display = 'none';});
 
 const game = new LiarsDice();
 
@@ -101,7 +107,7 @@ function showUserRoll(){
             continue;
         }
         for (let count = 1; count < game.userRolled[face] + 1; count++) {
-            let path = game.settings.images[face]
+            let path = game.settings.dieImages[face]
             let imageElement = document.createElement("img")
             imageElement.src = path;
             imageElement.alt = `${face}!`;
@@ -131,4 +137,18 @@ function showFaceOptions() {
         bidFaceDropdown[bidFaceDropdown.length] = new Option(
             n.toString(), n.toString());
     }
+}
+
+function showNPCPortrait() {
+    let roll;
+    let path;
+    for (let n = 1; n < game.numPlayers; n++) {
+        roll = Math.floor(Math.random()*8 + 1);
+        path = game.settings.portraits[roll].replace("NPC_X", `npc_${n}`);
+        document.getElementById(`npc${n}Img`).src = path;
+        document.getElementById(`npc${n}Name`).innerText = game.players[n].name;
+    }
+    portraits.forEach(portrait => {
+        portrait.style.display = 'initial';
+    });
 }

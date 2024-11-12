@@ -9,9 +9,9 @@ export default class LiarsDice {
         this.user = new Player(this, "User");
         this.players = new Array(
             this.user,
-            new NPC(this, "Bruno"),
-            new NPC(this, "Beanz"),
-            new NPC(this, "Libby")
+            new NPC(this, "Libby"),
+            new NPC(this, "June"),
+            new NPC(this, "Beanz")
             );
         this.numPlayers = this.players.length;
         this.turn = Math.floor(Math.random() * this.numPlayers);

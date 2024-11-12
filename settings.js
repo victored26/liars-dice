@@ -5,7 +5,7 @@ export default class Settings {
         this.faces = 6;
 
         // Game Images
-        this.images = {
+        this.dieImages = {
             1: "./images/die/face_one.png",
             2: "./images/die/face_two.png",
             3: "./images/die/face_three.png",
@@ -13,7 +13,17 @@ export default class Settings {
             5: "./images/die/face_five.png",
             6: "./images/die/face_six.png"
         };
-
+        this.portraits = {
+            1: "./images/NPC_X/one.PNG",
+            2: "./images/NPC_X/two.PNG",
+            3: "./images/NPC_X/three.PNG",
+            4: "./images/NPC_X/four.PNG",
+            5: "./images/NPC_X/five.PNG",
+            6: "./images/NPC_X/six.PNG",
+            7: "./images/NPC_X/seven.PNG",
+            8: "./images/NPC_X/eight.PNG",
+        }
+        
         // NPC Behaviour Settings
         this.bidEvalOffset = 0.1;
         this.bidNumMultiplier = 1;
