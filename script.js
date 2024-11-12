@@ -9,7 +9,7 @@ const gameStatements = document.getElementById("gameStatements");
 const continueButton = document.getElementById("continue");
 const challengeBidButton = document.getElementById("challengeBid");
 const bidNumDropdown = document.getElementById("selectAmount");
-const bidFaceDropdown = document.getElementById("selectFace");
+const selectFace = document.getElementById("selectFace");
 const makeBidButton = document.getElementById("makeBid");
 const user = document.getElementById("user");
 const userNameDisplay = document.getElementById("userNameDisplay");
@@ -57,12 +57,12 @@ function toggleBidVisibility(){
             challengeBidButton.style.display = "initial";
         }
         bidNumDropdown.style.display = "initial";
-        bidFaceDropdown.style.display = "initial";
+        selectFace.style.display = "initial";
         makeBidButton.style.display = "initial";
     } else {
         challengeBidButton.style.display = "none";
         bidNumDropdown.style.display = "none";
-        bidFaceDropdown.style.display = "none";
+        selectFace.style.display = "none";
         makeBidButton.style.display = "none";
     }
 }
@@ -81,7 +81,7 @@ function startTurn(){
 
 function userMakeBid() {
     let number = Number(bidNumDropdown.value);
-    let face = Number(bidFaceDropdown.value);
+    let face = Number(selectFace.value);
     game.userMakeBid(number, face);
     gameStatements.innerText = game.statements;
     toggleBidVisibility();
@@ -139,13 +139,17 @@ function showNumOptions(){
 
 function showFaceOptions() {
     let bidMinFace = 1;
+    let newElement;
     if (Number(bidNumDropdown.value) == game.lastBid['number']) {
         bidMinFace = game.lastBid['face'] + 1;
     }
-    bidFaceDropdown.innerText = null;
+    selectFace.innerHTML = ``;
     for (let n = bidMinFace; n < game.settings.faces + 1; n++) {
-        bidFaceDropdown[bidFaceDropdown.length] = new Option(
-            n.toString(), n.toString());
+        newElement = `<input type="radio" name="userFace" id="face${n}" value="${n}"></input>`;
+        newElement += `<label for="face${n}">`;
+        newElement += `<img src="${game.settings.dieImages[n]}" class="dice"></img>`;
+        newElement += "</label>";
+        selectFace.innerHTML += newElement;
     }
 }
 
