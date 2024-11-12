@@ -24,6 +24,7 @@ playButton.onclick = function() {
         game.user.name = userName.value;
         userNameDisplay.innerText = userName.value;
     }
+    gameStatements.style.display = "block";
     user.style.display = "initial";
     startTurn();
     }
@@ -39,12 +40,14 @@ continueButton.onclick = function() {
     startTurn();
 }
 
-user.style.display = "none";
+portraits.forEach(portrait => {portrait.style.display = 'none';});
+gameStatements.style.display = "none";
 bidNumDropdown.addEventListener("change", showFaceOptions);
 makeBidButton.onclick = function() {userMakeBid();}
 toggleBidVisibility();
 continueButton.style.display = "none";
-portraits.forEach(portrait => {portrait.style.display = 'none';});
+user.style.display = "none";
+
 
 const game = new LiarsDice();
 
