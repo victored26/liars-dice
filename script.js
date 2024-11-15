@@ -12,6 +12,7 @@ const bidNumDropdown = document.getElementById("selectAmount");
 const selectFace = document.getElementById("selectFace");
 const makeBidButton = document.getElementById("makeBid");
 const user = document.getElementById("user");
+const userImg = document.getElementById("userImg");
 const userNameDisplay = document.getElementById("userNameDisplay");
 const userRoll = document.getElementById("userRoll");
 
@@ -20,6 +21,10 @@ playButton.onclick = function() {
     portraitRadioForm.style.display = "none";
     userNameForm.style.display = "none";
     showNPCPortrait();
+    let userPortrait = document.querySelector('input[name="userPortrait"]:checked');
+    if (userPortrait != null) {
+        userImg.src = game.settings.portraits[userPortrait.value].replace("NPC_X", "user");
+    }
     if (userName.value != "") {
         game.user.name = userName.value;
         userNameDisplay.innerText = userName.value;
