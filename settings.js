@@ -14,14 +14,14 @@ export default class Settings {
             6: "./images/die/face_six.png"
         };
         this.portraits = {
-            1: "./images/NPC_X/one.png",
-            2: "./images/NPC_X/two.png",
-            3: "./images/NPC_X/three.png",
-            4: "./images/NPC_X/four.png",
-            5: "./images/NPC_X/five.png",
-            6: "./images/NPC_X/six.png",
-            7: "./images/NPC_X/seven.png",
-            8: "./images/NPC_X/eight.png",
+            1: "./images/npc_x/one.PNG",
+            2: "./images/npc_x/two.PNG",
+            3: "./images/npc_x/three.PNG",
+            4: "./images/npc_x/four.PNG",
+            5: "./images/npc_x/five.PNG",
+            6: "./images/npc_x/six.PNG",
+            7: "./images/npc_x/seven.PNG",
+            8: "./images/npc_x/eight.PNG",
         }
         this.diceLeft = {
             1: "./images/npc_1/die.png",

@@ -1,40 +1,17 @@
 import LiarsDice from './liars-dice.js'
 
-const portraitRadioForm = document.getElementById("portraitRadioForm");
-const userNameForm = document.getElementById("nameEntryForm");
-const userName = document.getElementById("userName");
 const playButton = document.getElementById("startGame");
 const portraits = document.querySelectorAll(".portrait");
 const gameStatements = document.getElementById("gameStatements");
 const continueButton = document.getElementById("continue");
 const challengeBidButton = document.getElementById("challengeBid");
-const bidNumDropdown = document.getElementById("selectAmount");
 const bidQuantity = document.getElementById("bidQuantity");
 const selectFace = document.getElementById("selectFace");
 const makeBidButton = document.getElementById("makeBid");
 const user = document.getElementById("user");
-const userImg = document.getElementById("userImg");
-const userNameDisplay = document.getElementById("userNameDisplay");
 const userRoll = document.getElementById("userRoll");
 
-playButton.onclick = function() {
-    playButton.style.display = "none";
-    portraitRadioForm.style.display = "none";
-    userNameForm.style.display = "none";
-    showNPCPortrait();
-    let userPortrait = document.querySelector('input[name="userPortrait"]:checked');
-    if (userPortrait != null) {
-        userImg.src = game.settings.portraits[userPortrait.value].replace("NPC_X", "user");
-    }
-    if (userName.value != "") {
-        game.user.name = userName.value;
-        userNameDisplay.innerText = userName.value;
-    }
-    gameStatements.style.display = "block";
-    user.style.display = "initial";
-    startTurn();
-    toggleBidVisibility();
-}
+playButton.onclick = function() {beginGame();}
 
 challengeBidButton.onclick = function() {
     if (challengeBidButton.className == "buttonActive") {
@@ -57,32 +34,36 @@ makeBidButton.onclick = function() {
     }
 }
 
+document.getElementById("game").style.display = "none";
 portraits.forEach(portrait => {portrait.style.display = 'none';});
-gameStatements.style.display = "none";
-bidNumDropdown.addEventListener("change", showFaceOptions);
-toggleBidVisibility();
-continueButton.style.display = "none";
-user.style.display = "none";
+bidQuantity.addEventListener("change", showFaceOptions);
 
 
 const game = new LiarsDice();
 
-function toggleBidVisibility(){
-    if (bidNumDropdown.style.display == "none") {
-        if (game.lastBid['number'] > 0) {
-            challengeBidButton.style.display = "initial";
-        }
-        bidNumDropdown.style.display = "initial";
-        selectFace.style.display = "initial";
-        makeBidButton.style.display = "initial";
-        continueButton.style.display = "initial";
-    } else {
-        challengeBidButton.style.display = "none";
-        bidNumDropdown.style.display = "none";
-        selectFace.style.display = "none";
-        makeBidButton.style.display = "none";
-        continueButton.style.display = "none";
+function beginGame() {
+    // Retrieve user image and name
+    let img = document.querySelector('input[name="userPortrait"]:checked');
+    if (img != null) {
+        const userImg = document.getElementById("userImg");
+        userImg.src = game.settings.portraits[img.value].replace("npc_x", "user");
     }
+    const userName = document.getElementById("userName");
+    const userNameDisplay = document.getElementById("userNameDisplay");
+    if (userName.value != "") {
+        game.user.name = userName.value;
+        userNameDisplay.innerText = userName.value;
+    }
+
+    // Hide the menu and display the game
+    const menu = document.getElementById("menu");
+    const gamePage = document.getElementById("game");
+    menu.style.display = "none";
+    gamePage.style.display = "initial";
+    showNPCPortrait();
+
+    // Start the game
+    startTurn();
 }
 
 function startTurn(){
@@ -102,7 +83,7 @@ function userMakeBid() {
     let validNumber = (Number(bidQuantity.value) >= Number(bidQuantity.min));
     validNumber = validNumber && (Number(bidQuantity.value) <= Number(bidQuantity.max));
     if (face != null && validNumber){
-        let number = Number(bidNumDropdown.value);
+        let number = Number(bidQuantity.value);
         game.userMakeBid(number, Number(face));
         gameStatements.innerText = game.statements;
         npcTurn();
@@ -155,17 +136,12 @@ function showNumOptions(){
     bidQuantity.min = bidMinNumber.toString();
     bidQuantity.value = bidQuantity.min;
     bidQuantity.max = game.totalDice.toString();
-    bidNumDropdown.innerText = null;
-    for (let n = bidMinNumber; n < game.totalDice + 1; n++) {
-        bidNumDropdown[bidNumDropdown.length] = new Option(
-            n.toString(), n.toString());
-    }
 }
 
 function showFaceOptions() {
     let bidMinFace = 1;
     let newElement;
-    if (Number(bidNumDropdown.value) == game.lastBid['number']) {
+    if (Number(bidQuantity.value) == game.lastBid['number']) {
         bidMinFace = game.lastBid['face'] + 1;
     }
     selectFace.innerHTML = ``;
@@ -183,7 +159,7 @@ function showNPCPortrait() {
     let path;
     for (let n = 1; n < game.numPlayers; n++) {
         roll = Math.floor(Math.random()*8 + 1);
-        path = game.settings.portraits[roll].replace("NPC_X", `npc_${n}`);
+        path = game.settings.portraits[roll].replace("npc_x", `npc_${n}`);
         document.getElementById(`npc${n}Img`).src = path;
         document.getElementById(`npc${n}Name`).innerText = game.players[n].name;
     }

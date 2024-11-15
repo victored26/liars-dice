@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Liar's Dice</title>
+    <title>Liar's Dice</title>
 </head>
 
 <style>
@@ -157,126 +158,128 @@
 
 <body>
 
-<h1>Liar's Dice</h1>
+  <hgroup>
+    <h1>Liar's Dice</h1>
+    <p> Every player starts the game with five dice. Each round, the players roll 
+        their dice. Players are only permitted to look at their own results. 
+        The first player begins the bidding by announcing any face value 
+        and the minimum number of dice on the table they believe 
+        rolled this face value. 
+        The next player must then either challenge the bid, or make a bid of their 
+        own. If the bid is challenge, the loser loses a die and the round ends. 
+        If the loser of the previous round did not run out of dice, 
+        then they begin the bidding on the new round. 
+        If the player chooses to make a bid, then that bid must consist of 
+        either a larger minimum number of dice on the table of any face value, 
+        or, if they choose to stick to the previously announced minimum number 
+        of dice, of a higher face value. 
+        A player wins if everyone else on the table lost all their dice. </p>
+  </hgroup>
 
-<p id="gameDescription">
-    Every player starts the game with five dice. Each round, the players roll 
-    their dice. Players are only permitted to look at their own results. 
-    The first player begins the bidding by announcing any face value 
-    and the minimum number of dice on the table they believe 
-    rolled this face value. 
-    The next player must then either challenge the bid, or make a bid of their 
-    own. If the bid is challenge, the loser loses a die and the round ends. 
-    If the loser of the previous round did not run out of dice, 
-    then they begin the bidding on the new round. 
-    If the player chooses to make a bid, then that bid must consist of 
-    either a larger minimum number of dice on the table of any face value, 
-    or, if they choose to stick to the previously announced minimum number 
-    of dice, of a higher face value. 
-    A player wins if everyone else on the table lost all their dice.
-</p>
+  <div id="menu">
+    <form>
+      <h3>Select a portrait</h3>
+      <fieldset style="text-align: center;">
 
-<form id="portraitRadioForm">
- <h3>Select a portrait</h3>
- <fieldset style="text-align: center;">
-  <input type="radio" name="userPortrait" id="user1" value="1">
-  <label for="user1">
-    <img src="./images/user/one.png" class="portraitOption">
-  </label>
+        <input type="radio" name="userPortrait" id="opt1" value="1">
+        <label for="opt1">
+          <img src="./images/user/one.PNG" class="portraitOption">
+        </label>
 
-  <input type="radio" name="userPortrait" id="user2" value="2">
-  <label for="user2">
-    <img src="./images/user/two.png" class="portraitOption">
-  </label>
+        <input type="radio" name="userPortrait" id="opt2" value="2">
+        <label for="opt2">
+          <img src="./images/user/two.PNG" class="portraitOption">
+        </label>
 
-  <input type="radio" name="userPortrait" id="user3" value="3">
-  <label for="user3">
-    <img src="./images/user/three.png" class="portraitOption">
-  </label>
+        <input type="radio" name="userPortrait" id="opt3" value="3">
+        <label for="opt3">
+          <img src="./images/user/three.PNG" class="portraitOption">
+        </label>
 
-  <input type="radio" name="userPortrait" id="user4" value="4">
-  <label for="user4">
-    <img src="./images/user/four.png" class="portraitOption">
-  </label>
+        <input type="radio" name="userPortrait" id="opt4" value="4">
+        <label for="opt4">
+          <img src="./images/user/four.PNG" class="portraitOption">
+        </label>
 
-  <input type="radio" name="userPortrait" id="user5" value="5">
-  <label for="user5">
-    <img src="./images/user/five.png" class="portraitOption">
-  </label>
+        <input type="radio" name="userPortrait" id="opt5" value="5">
+        <label for="opt5">
+          <img src="./images/user/five.PNG" class="portraitOption">
+        </label>
 
-  <input type="radio" name="userPortrait" id="user6" value="6">
-  <label for="user6">
-    <img src="./images/user/six.png" class="portraitOption">
-  </label>
+        <input type="radio" name="userPortrait" id="opt6" value="6">
+        <label for="opt6">
+          <img src="./images/user/six.PNG" class="portraitOption">
+        </label>
 
-  <input type="radio" name="userPortrait" id="user7" value="7">
-  <label for="user7">
-    <img src="./images/user/seven.png" class="portraitOption">
-  </label>
+        <input type="radio" name="userPortrait" id="opt7" value="7">
+        <label for="opt7">
+          <img src="./images/user/seven.PNG" class="portraitOption">
+        </label>
 
-  <input type="radio" name="userPortrait" id="user8" value="8">
-  <label for="user8">
-    <img src="./images/user/eight.png" class="portraitOption">
-  </label>
- </fieldset>
- <br>
+        <input type="radio" name="userPortrait" id="opt8" value="8">
+        <label for="opt8">
+          <img src="./images/user/eight.PNG" class="portraitOption">
+        </label>
 
-</form>
+      </fieldset><br>
+    </form>
 
-<form id="nameEntryForm">
-  <h3>Enter your name</h3>
-  <input type="text" id="userName" value="">
-  <br><br>
-</form>
+    <form>
+      <h3>Enter your name</h3>
+      <input type="text" id="userName" value="">
+      <br><br>
+    </form>
 
-<button class="buttonActive" id="startGame">Start Playing</button>
+    <button class="buttonActive" id="startGame">Start Playing</button>
+  </div>
 
-<div class="portraitRow">
+  <div id="game">
+    <div class="portraitRow">
 
-  <div class="portrait" id="npc1">
-    <img src="./images/npc_1/one.png" id="npc1Img" class="center">
-    <p id="npc1Name" style="color:red"></p>
-    <div class="diceRow" id="npc1DiceLeft">
+      <div class="portrait" id="npc1">
+        <img src="./images/npc_1/one.PNG" id="npc1Img" class="center">
+        <p id="npc1Name" style="color:red"></p>
+        <div class="diceRow" id="npc1DiceLeft">
+        </div>
+      </div>
+
+      <div class="portrait" id="npc2">
+        <img src="./images/npc_2/eight.PNG" id="npc2Img" class="center">
+        <p id="npc2Name" style="color:green"></p>
+        <div class="diceRow" id="npc2DiceLeft">
+        </div>
+      </div>
+
+      <div class="portrait" id="npc3">
+        <img src="./images/npc_3/two.PNG" id="npc3Img" class="center">
+        <p id="npc3Name" style="color:rgb(93, 6, 93)"></p>
+        <div class="diceRow" id="npc3DiceLeft">
+        </div>
+      </div>
+
+    </div>
+
+    <p id="gameStatements"></p>
+
+    <div id="user">
+      <div id="userSelectBid" style="text-align: center;">
+        <label for="bidQuantity">Quantity:</label>
+        <input type="number" id="bidQuantity" name="bidQuantity" min="1" max="20">
+        <form id="selectFace"></form>
+      </div>
+      <br>
+      <div id="userBid">
+        <button class="buttonDisabled" id="challengeBid" style="width: 20%">Challenge Bid</button>
+        <button class="buttonDisabled" id="makeBid" style="width: 20%">Make Bid</button>
+        <button class="buttonDisabled" id="continue" style="width: 20%">Next turn</button>
+      </div>
+
+      <br><hr>
+      <img src="/images/user/six.PNG" id="userImg" class="center">
+      <p id="userNameDisplay" style ="text-align: center;">Bruno</p>
+      <div class="diceRow" id="userRoll"></div><br>
     </div>
   </div>
-
-  <div class="portrait" id="npc2">
-    <img src="./images/npc_2/eight.png" id="npc2Img" class="center">
-    <p id="npc2Name" style="color:green"></p>
-    <div class="diceRow" id="npc2DiceLeft">
-    </div>
-  </div>
-
-  <div class="portrait" id="npc3">
-    <img src="./images/npc_3/two.png" id="npc3Img" class="center">
-    <p id="npc3Name" style="color:rgb(93, 6, 93)"></p>
-    <div class="diceRow" id="npc3DiceLeft">
-    </div>
-  </div>
-
-</div>
-
-<p id="gameStatements"></p>
-
-<div id="user">
-  <div id="userSelectBid" style="text-align: center;">
-    <label for="bidQuantity">Quantity:</label>
-    <input type="number" id="bidQuantity" name="bidQuantity" min="1" max="20">
-    <select id="selectAmount"><option>Choose a number</option></select>
-    <form id="selectFace"></form>
-  </div>
-  <br>
-  <div id="userBid">
-    <button class="buttonDisabled" id="challengeBid" style="width: 20%">Challenge Bid</button>
-    <button class="buttonDisabled" id="makeBid" style="width: 20%">Make Bid</button>
-    <button class="buttonDisabled" id="continue" style="width: 20%">Next turn</button>
-  </div>
-
-  <br><hr>
-  <img src="/images/user/six.png" id="userImg" class="center">
-  <p id="userNameDisplay" style ="text-align: center;">Bruno</p>
-  <div class="diceRow" id="userRoll"></div><br>
-</div>
 
 <script type="module" src="script.js"></script>
 
