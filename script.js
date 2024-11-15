@@ -99,9 +99,8 @@ function startTurn(){
 
 function userMakeBid() {
     let face = document.querySelector('input[name="userFace"]:checked').value;
-    let validNumber = (bidQuantity.value >= bidQuantity.min);
-    validNumber = (bidQuantity.value <= bidQuantity.max);
-    console.log(bidQuantity.value <= bidQuantity.max);
+    let validNumber = (Number(bidQuantity.value) >= Number(bidQuantity.min));
+    validNumber = validNumber && (Number(bidQuantity.value) <= Number(bidQuantity.max));
     if (face != null && validNumber){
         let number = Number(bidNumDropdown.value);
         game.userMakeBid(number, Number(face));
