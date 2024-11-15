@@ -92,11 +92,13 @@ function startTurn(){
 }
 
 function userMakeBid() {
-    let number = Number(bidNumDropdown.value);
-    let face = Number(selectFace.value);
-    game.userMakeBid(number, face);
-    gameStatements.innerText = game.statements;
-    npcTurn();
+    let face = document.querySelector('input[name="userFace"]:checked').value;
+    if (face != null){
+        let number = Number(bidNumDropdown.value);
+        game.userMakeBid(number, Number(face));
+        gameStatements.innerText = game.statements;
+        npcTurn();
+    }
 }
 
 function userTurn(){
