@@ -9,6 +9,7 @@ const gameStatements = document.getElementById("gameStatements");
 const continueButton = document.getElementById("continue");
 const challengeBidButton = document.getElementById("challengeBid");
 const bidNumDropdown = document.getElementById("selectAmount");
+const bidQuantity = document.getElementById("bidQuantity");
 const selectFace = document.getElementById("selectFace");
 const makeBidButton = document.getElementById("makeBid");
 const user = document.getElementById("user");
@@ -98,7 +99,10 @@ function startTurn(){
 
 function userMakeBid() {
     let face = document.querySelector('input[name="userFace"]:checked').value;
-    if (face != null){
+    let validNumber = (bidQuantity.value >= bidQuantity.min);
+    validNumber = (bidQuantity.value <= bidQuantity.max);
+    console.log(bidQuantity.value <= bidQuantity.max);
+    if (face != null && validNumber){
         let number = Number(bidNumDropdown.value);
         game.userMakeBid(number, Number(face));
         gameStatements.innerText = game.statements;
@@ -149,6 +153,9 @@ function showUserRoll(){
 function showNumOptions(){
     let bidMinNumber = game.lastBid['number'];
     bidMinNumber += game.lastBid['face'] < game.settings.faces ? 0 : 1;
+    bidQuantity.min = bidMinNumber.toString();
+    bidQuantity.value = bidQuantity.min;
+    bidQuantity.max = game.totalDice.toString();
     bidNumDropdown.innerText = null;
     for (let n = bidMinNumber; n < game.totalDice + 1; n++) {
         bidNumDropdown[bidNumDropdown.length] = new Option(
