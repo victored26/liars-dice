@@ -14,19 +14,19 @@ export default class Settings {
             6: "./images/die/face_six.png"
         };
         this.portraits = {
-            1: "./images/NPC_X/one.PNG",
-            2: "./images/NPC_X/two.PNG",
-            3: "./images/NPC_X/three.PNG",
-            4: "./images/NPC_X/four.PNG",
-            5: "./images/NPC_X/five.PNG",
-            6: "./images/NPC_X/six.PNG",
-            7: "./images/NPC_X/seven.PNG",
-            8: "./images/NPC_X/eight.PNG",
+            1: "./images/NPC_X/one.png",
+            2: "./images/NPC_X/two.png",
+            3: "./images/NPC_X/three.png",
+            4: "./images/NPC_X/four.png",
+            5: "./images/NPC_X/five.png",
+            6: "./images/NPC_X/six.png",
+            7: "./images/NPC_X/seven.png",
+            8: "./images/NPC_X/eight.png",
         }
         this.diceLeft = {
-            1: "./images/npc_1/die.PNG",
-            2: "./images/npc_2/die.PNG",
-            3: "./images/npc_3/die.PNG"
+            1: "./images/npc_1/die.png",
+            2: "./images/npc_2/die.png",
+            3: "./images/npc_3/die.png"
         }
 
         // NPC Behaviour Settings
