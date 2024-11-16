@@ -79,7 +79,9 @@ function userChallengeBid() {
     /* Challenges previous bid if user is not the first bidder of the round */
     if (challengeBid.className == "enabled") {
         challengeBid.className = "disabled";
+        curPlayer.innerHTML = `<u>${game.user.name}<u>`;
         userBid.style.display = "none";
+        game.turn = 0;
         endTurn();
     }
 }
@@ -88,7 +90,6 @@ function placeBid() {
     /* Places bid if it is the user's turn and the bid is valid */
     if (makeBid.className == "enabled") {
         makeBid.className = "disabled";
-        challengeBid.className = "disabled";
         let face = document.querySelector('input[name="userFace"]:checked').value;
         let validNumber = (Number(bidNum.value) >= Number(bidNum.min));
         validNumber = validNumber && (Number(bidNum.value) <= Number(bidNum.max));
@@ -96,7 +97,6 @@ function placeBid() {
             game.userMakeBid(Number(bidNum.value), Number(face));
             curUpdate.innerHTML = showBid();
             nextTurn.className = "enabled";
-            curPlayer.innerHTML = `<u>${game.user.name}<u>`;
         }
         userBid.style.display = "none";
     }
@@ -104,6 +104,8 @@ function placeBid() {
 
 function startTurn(){
     /* Sets up the new game turn*/
+    curPlayer.innerHTML = null;
+    curUpdate.innerHTML = null;
     game.startTurn();
     showUserRoll();
     assignTurn();
@@ -112,13 +114,14 @@ function startTurn(){
 function userTurn(){
     /* Displays the bid options and allows for the user to place a bid */
     userBid.style.display = "block";
-    curPlayer.innerHTML = `<u>PREVIOUS BID<u>`;
+    curPlayer.innerHTML = `<u>${game.user.name}<u>`;
+    curUpdate.innerHTML = null;
     showNumOptions();
     showFaceOptions();
+    challengeBid.className = "disabled";
     makeBid.className = "enabled";
     if (game.lastBid['number'] > 0) {
         game.npcsEvaluateBid();
-        challengeBid.className = "enabled";
     }
 }
 
@@ -156,10 +159,12 @@ function npcTurn() {
     if (!game.turnOver) {
         curUpdate.innerHTML = showBid();
         nextTurn.className = "enabled";
+        if (game.turn == game.numPlayers - 1) {
+            challengeBid.className = "enabled";
+        }
     } else {
         endTurn();
     }
-    
 }
 
 function endTurn() {
@@ -177,7 +182,9 @@ function bidCheck() {
     curUpdate.innerHTML = game.settings.statements['challenge'];
     curUpdate.innerHTML += showBidAndRolled();
     curUpdate.innerHTML += `${game.settings.statements[bidBool.toString()]}`;
-    losesDie(loser);
+    if (loser.id != 0){
+        losesDie(loser);
+    }
 }
 function showUserRoll(){
     let path;
@@ -197,7 +204,7 @@ function showNPCs() {
     /* Displays NPCs' portraits and number of dice they start with.
     The NPC portraits are chosen at random from their image list. */
     let roll = 0, portSrc = "", diceContainer = "", diceSrc = "";
-    for (let n = 1; n < game.settings.numPlayers; n++) {
+    for (let n = 1; n < game.numPlayers; n++) {
         // Portrait
         roll = Math.floor(Math.random()*8 + 1);
         portSrc = game.settings.portraits[roll].replace("npc_x", `npc_${n}`);
