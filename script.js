@@ -16,7 +16,7 @@ const userRoll = document.getElementById("userRoll");
 // Assign actions
 play.onclick = function() {beginGame();}
 challengeBid.onclick = function() {userChallengeBid();}
-nextTurn.onclick = function() {continueToNextTurn();}
+nextTurn.onclick = function() {proceed();}
 makeBid.onclick = function() {placeBid();}
 bidNum.onchange = function() {showFaceOptions();}
 
@@ -53,32 +53,43 @@ function beginGame() {
     startTurn();
 }
 
+function proceed() {
+    /* Advances to next set of turns if the current set is over. 
+    Otherwise, proceeds to next turn within the current set */
+    if (nextTurn.className == "enabled") {
+        nextTurn.className = "disabled";
+        if (game.turnOver) {
+            startTurn();
+        } else {
+            game.turn++;
+            game.turn %= game.numPlayers;
+            if (game.turn != 0) {
+                npcTurn();
+            } else {
+                userTurn();
+            }
+        }
+    }
+}
+
 function userChallengeBid() {
     /* Challenges previous bid if user is not the first bidder of the round */
-    if (challengeBid.className == "active") {
+    if (challengeBid.className == "enabled") {
         challengeBid.className = "disabled";
         endTurn();
     }
 }
 
-function continueToNextTurn() {
-    /* Advances to next turn ingame if the current turn is over */
-    if (nextTurn.className == "active") {
-        nextTurn.className = "disabled";
-        startTurn();
-    }
-}
-
 function placeBid() {
     /* Places bid if it is the user's turn and the bid is valid */
-    if (makeBid.className == "active") {
+    if (makeBid.className == "enabled") {
         let face = document.querySelector('input[name="userFace"]:checked').value;
         let validNumber = (Number(bidNum.value) >= Number(bidNum.min));
         validNumber = validNumber && (Number(bidNum.value) <= Number(bidNum.max));
         if (face != null && validNumber){
             game.userMakeBid(Number(bidNum.value), Number(face));
             curUpdate.innerHTML = placeBidUpdate(Number(bidNum.value), Number(face));
-            npcTurn();
+            nextTurn.className = "enabled";
         }
     }
 }
@@ -108,7 +119,7 @@ function userTurn(){
     userBid.style.display = "block";
     showNumOptions();
     showFaceOptions();
-    makeBid.className = "active";
+    makeBid.className = "enabled";
 }
 
 function showNumOptions(){
@@ -144,7 +155,7 @@ function npcTurn() {
     if (game.turnOver) {
         endTurn();
     } else {
-        challengeBid.className = "active";
+        challengeBid.className = "enabled";
         userTurn();
     }
     commentary.innerHTML = game.commentary;
@@ -156,7 +167,7 @@ function endTurn() {
     game.checkEndGame();
     commentary.innerHTML = game.commentary;
     if (!game.gameOver) {
-        nextTurn.className = "active";
+        nextTurn.className = "enabled";
     } 
 }
 function showUserRoll(){
@@ -211,10 +222,8 @@ function placeBidUpdate(num, face) {
     } else {
         text += game.settings.statements['singleBid'].replace("NUM", num);
     }
-    text += `<img src="game.settings.dieImages[${face}]"`;
-    text += "style=vertical-align: middle;;width:20px;height:20px;";
+    text += `<img src="${game.settings.dieImages[face]}"`;
+    text += `style="vertical-align: middle;width:20px;height:20px;"`;
     text += "></img>";
     return text
-}
-
-        
+} 

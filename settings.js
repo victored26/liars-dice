@@ -6,12 +6,12 @@ export default class Settings {
 
         // Game Images
         this.dieImages = {
-            1: "./images/die/face_one.png",
-            2: "./images/die/face_two.png",
-            3: "./images/die/face_three.png",
-            4: "./images/die/face_four.png",
-            5: "./images/die/face_five.png",
-            6: "./images/die/face_six.png"
+            1: "./images/die/face_one.PNG",
+            2: "./images/die/face_two.PNG",
+            3: "./images/die/face_three.PNG",
+            4: "./images/die/face_four.PNG",
+            5: "./images/die/face_five.PNG",
+            6: "./images/die/face_six.PNG"
         };
         this.portraits = {
             1: "./images/npc_x/one.PNG",
