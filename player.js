@@ -36,7 +36,7 @@ export default class Player {
     }
     endTurn() {
         // Turn clean up
-        this.rolled = {}
+        this.rolled = {};
         for (let face = 1; face < this.settings.faces + 1; face++){
             this.rolled[face] = 0;
         }

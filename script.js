@@ -82,6 +82,7 @@ function userChallengeBid() {
         curPlayer.innerHTML = `<u>${game.user.name}<u>`;
         userBid.style.display = "none";
         game.turn = 0;
+        game.turnOver = true;
         endTurn();
     }
 }
