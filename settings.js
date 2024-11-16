@@ -43,8 +43,8 @@ export default class Settings {
             6: "six"
         }
         this.statements = {
-            'singleBid': "PLAYER: There is NUM FACE",
-            'pluralBid': "PLAYER: There are NUM FACE",
+            'singleBid': "There is NUM",
+            'pluralBid': "There are NUM",
             'challenge': "CHALLENGER challenges BIDDER's bid",
             'trueBid': "The bid was not false",
             'falseBid': "The bid was false",

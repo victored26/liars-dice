@@ -82,17 +82,17 @@
       font-size: large;
     }
 
-    .buttonActive:hover, .dice:hover {
+    .active:hover, .dice:hover {
       box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     }
 
-    .buttonActive:active {
+    .active:active {
       background-color: #3e8e41;
       box-shadow: 0 5px #666;
       transform: translateY(4px);
     }
 
-    .buttonDisabled {
+    .disabled {
       opacity: 0.5;
       cursor: default;
     }
@@ -126,7 +126,7 @@
       height: 40px;
     }
     
-    #gameStatements {
+    #commentary {
       display: block;
       margin-left: auto;
       margin-right: auto;
@@ -141,7 +141,7 @@
       color: #041a6b;
     }
 
-    #userBid {
+    #userActions {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
@@ -230,7 +230,7 @@
       <br><br>
     </form>
 
-    <button class="buttonActive" id="startGame">Start Playing</button>
+    <button class="active" id="startGame">Start Playing</button>
   </div>
 
   <div id="game">
@@ -259,31 +259,37 @@
 
     </div>
 
-    <p id="gameStatements"></p>
+    <div id="commentary">
+      <p id="curPlayer" style=text-align:center></p>
+      <p id="curUpdate"></p>
+    </div>
 
     <div id="user">
-      <div id="userSelectBid" style="text-align: center;">
-        <label for="bidQuantity">Quantity:</label>
-        <input type="number" id="bidQuantity" name="bidQuantity" min="1" max="20">
-        <form id="selectFace"></form>
-      </div>
-      <br>
-      <div id="userBid">
-        <button class="buttonDisabled" id="challengeBid" style="width: 20%">Challenge Bid</button>
-        <button class="buttonDisabled" id="makeBid" style="width: 20%">Make Bid</button>
-        <button class="buttonDisabled" id="continue" style="width: 20%">Next turn</button>
-      </div>
 
-      <br><hr>
+      <div id="userBid" style="text-align: center;">
+        <label for="bidNum">Quantity:</label>
+        <input type="number" id="bidNum" name="bidNum" min="1" max="20">
+        <br><br>
+        <form id="selectFace"></form><br>
+      </div>
+      
+      <div id="userActions">
+        <button class="disabled" id="challengeBid" style="width: 20%">Challenge Bid</button>
+        <button class="disabled" id="makeBid" style="width: 20%">Make Bid</button>
+        <button class="disabled" id="continue" style="width: 20%">Next Turn</button>
+      </div><br><hr>
+
       <img src="/images/user/six.PNG" id="userImg" class="center">
       <p id="userNameDisplay" style ="text-align: center;">Bruno</p>
       <div class="diceRow" id="userRoll"></div><br>
     </div>
+
   </div>
 
 <script type="module" src="script.js"></script>
 
 </body>
+
 </html>
   
 

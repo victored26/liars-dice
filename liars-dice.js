@@ -5,7 +5,7 @@ import NPC from './npc.js'
 export default class LiarsDice {
     constructor() {
         this.settings = new Settings();
-        this.statements = "";
+        this.commentary = "";
         this.user = new Player(this, "Bruno");
         this.players = new Array(
             this.user,
@@ -18,7 +18,7 @@ export default class LiarsDice {
         this.gameOver = false;
     }
     startTurn() {
-        this.statements = "";
+        this.commentary = "";
         this.turnOver = false;
         this.lastBid = {'number': 0, 'face': this.settings.faces};
         for (let i = 0; i < this.numPlayers; i++) {
@@ -81,14 +81,12 @@ export default class LiarsDice {
         this.user.placeBid(number, face);
         this.lastBid['number'] = this.user.bidNum;
         this.lastBid['face'] = this.user.bidFace;
-        this.makeBidStatement();
     }
     npcMakeBid() {
         let player = this.players[this.turn];
         player.makeBid(this.lastBid);
         this.lastBid['number'] = player.bidNum;
         this.lastBid['face'] = player.bidFace;
-        this.makeBidStatement();
     }
     npcEvaluateBid() {
         // All NPC players (including the bidder) evaluate the bid
@@ -104,40 +102,20 @@ export default class LiarsDice {
     }  
     
     // <!-- Statement Methods --!>
-    makeBidStatement() {
-        let text = "";
-        if (this.lastBid['number'] > 1) {
-            text = this.settings.statements['pluralBid'];
-            if (this.lastBid['face'] < 6) {
-                text += "s"; 
-            } else {
-                text += "es";
-            }
-        } else {
-            text = this.settings.statements['singleBid'];
-        }
-        text = text.replace("PLAYER", this.players[this.turn].name);
-        text = text.replace("NUM", this.lastBid['number']);
-        text = text.replace(
-            "FACE", 
-            this.settings.faceNames[this.lastBid['face']]
-            );
-        this.statements += text + "<br>";
-    }
     challengeBidStatement(challenger, bidder) {
         let text = this.settings.statements['challenge'];
         text = text.replace("CHALLENGER", challenger.name);
         text = text.replace("BIDDER", bidder.name);
-        this.statements += text + "<br>";
+        this.commentary += text + "<br>";
     }
     outcomeBidStatement(loser, bid) {
         let text = bid ? this.settings.statements['trueBid'] : this.settings.statements['falseBid'];
-        this.statements += text + "<br>";
+        this.commentary += text + "<br>";
 
         text = this.settings.statements['lostDie'];
         if (!loser.active) {
             text += this.settings.statements["leavesTable"];
         }
-        this.statements += text.replace(/PLAYER/g, loser.name) + "<br>";
+        this.commentary += text.replace(/PLAYER/g, loser.name) + "<br>";
     }
 } 
