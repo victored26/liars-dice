@@ -34,14 +34,11 @@ export default class LiarsDice {
         this.totalDice = Player.totalDice;
         this.totalRolled = Player.totalRolled;
         this.userRolled = this.user.rolled;
-        if (this.turn > 0) {
-            this.npcMakeBid();
-            }
         }
 
     nextTurn() {
         /* Advances turn within the current turn set */
-        this.turn = (++this.turn) % this.numPlayers;
+        this.turn = (this.turn + 1) % this.numPlayers;
     }
 
     npcTurn() {

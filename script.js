@@ -88,6 +88,7 @@ function placeBid() {
     /* Places bid if it is the user's turn and the bid is valid */
     if (makeBid.className == "enabled") {
         makeBid.className = "disabled";
+        challengeBid.className = "disabled";
         let face = document.querySelector('input[name="userFace"]:checked').value;
         let validNumber = (Number(bidNum.value) >= Number(bidNum.min));
         validNumber = validNumber && (Number(bidNum.value) <= Number(bidNum.max));
@@ -95,6 +96,7 @@ function placeBid() {
             game.userMakeBid(Number(bidNum.value), Number(face));
             curUpdate.innerHTML = showBid();
             nextTurn.className = "enabled";
+            curPlayer.innerHTML = `<u>${game.user.name}<u>`;
         }
         userBid.style.display = "none";
     }
@@ -110,8 +112,7 @@ function startTurn(){
 function userTurn(){
     /* Displays the bid options and allows for the user to place a bid */
     userBid.style.display = "block";
-    curPlayer.innerHTML = `<u>${game.user.name}<u>`;
-    curUpdate.innerHTML = null;
+    curPlayer.innerHTML = `<u>PREVIOUS BID<u>`;
     showNumOptions();
     showFaceOptions();
     makeBid.className = "enabled";
