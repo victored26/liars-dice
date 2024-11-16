@@ -3,30 +3,33 @@ import Player from './player.js'
 import NPC from './npc.js'
 
 export default class LiarsDice {
+
     constructor() {
+        /* Initializes the game and its settings */
         this.settings = new Settings();
-        this.commentary = "";
-        this.user = new Player(this, "Bruno");
+        this.gameOver = false;
+        this.user = new Player(this, "BRUNO");
         this.players = new Array(
             this.user,
-            new NPC(this, "Libby"),
-            new NPC(this, "June"),
-            new NPC(this, "Beanz")
+            new NPC(this, "LIBBY"),
+            new NPC(this, "JUNE"),
+            new NPC(this, "BEANZ")
             );
         this.numPlayers = this.players.length;
         this.turn = Math.floor(Math.random() * this.numPlayers);
-        this.gameOver = false;
     }
+
     startTurn() {
-        this.commentary = "";
+        /* Starts a new turn set */
         this.turnOver = false;
-        this.lastBid = {'number': 0, 'face': this.settings.faces};
-        for (let i = 0; i < this.numPlayers; i++) {
-            if (i == 0) {
-                this.players[i].rollDice();
-            } else {
-                this.players[i].newTurn();
-                }
+        this.bid = true;
+        this.lastBid = {
+            'number': 0, 
+            'face': this.settings.faces
+            };
+        this.players[0].rollDice();
+        for (let i = 1; i < this.numPlayers; i++) {
+            this.players[i].newTurn();
             }
         this.totalDice = Player.totalDice;
         this.totalRolled = Player.totalRolled;
@@ -35,38 +38,44 @@ export default class LiarsDice {
             this.npcMakeBid();
             }
         }
+
+    nextTurn() {
+        /* Advances turn within the current turn set */
+        this.turn = (++this.turn) % this.numPlayers;
+    }
+
     npcTurn() {
-        this.npcEvaluateBid();
-        while(this.turn != 0 && !this.turnOver){
+        /* Simulates an NPC turn */
+        this.npcsEvaluateBid();
+        if (!this.turnOver) {
             this.npcMakeBid();
-            this.npcEvaluateBid();
         }
     }
+
     endTurn() {
-        this.turn = Math.floor(Math.random() * this.numPlayers);
+        /* Ends the current turn set */
         for (let i = 0; i < this.numPlayers; i++) {
             this.players[i].endTurn();
         }
         Player.totalRolled = {};
     }
-    checkEndGame() {
+
+    checkGameOver() {
+        /* Checks if the game is over */
         this.gameOver = (this.numPlayers == 1 || this.user != this.players[0]);
     }
     bidCheck() {
-        let bid;
         let prev_turn = this.turn == 0 ? this.numPlayers - 1 : this.turn - 1;
         let challenger = this.players[this.turn];
         let bidder = this.players[prev_turn];
-        this.challengeBidStatement(challenger, bidder);
 
         if (this.totalRolled[this.lastBid['face']] >= this.lastBid['number']) {
-            bid = true;
             challenger.loseDie();
             if (!challenger.active) {
                 this.players.splice(this.turn, 1);
             }
         } else {
-            bid = false;
+            this.bid = false;
             bidder.loseDie();
             if (!bidder.active) {
                 this.players.splice(prev_turn, 1);
@@ -74,21 +83,20 @@ export default class LiarsDice {
                 this.turn = prev_turn;
             }
         }
-        let loser = bid ? challenger : bidder;
-        this.outcomeBidStatement(loser, bid);
+        this.loser = this.bid ? challenger : bidder;
     }
+
     userMakeBid(number, face) {
         this.user.placeBid(number, face);
         this.lastBid['number'] = this.user.bidNum;
         this.lastBid['face'] = this.user.bidFace;
     }
     npcMakeBid() {
-        let player = this.players[this.turn];
-        player.makeBid(this.lastBid);
-        this.lastBid['number'] = player.bidNum;
-        this.lastBid['face'] = player.bidFace;
+        this.players[this.turn].makeBid(this.lastBid);
+        this.lastBid['number'] = this.players[this.turn].bidNum;
+        this.lastBid['face'] = this.players[this.turn].bidFace;
     }
-    npcEvaluateBid() {
+    npcsEvaluateBid() {
         // All NPC players (including the bidder) evaluate the bid
         let nextTurn = (this.turn + 1) % this.numPlayers;
         for (let i = 1; i < this.numPlayers; i++) {
@@ -98,24 +106,5 @@ export default class LiarsDice {
                 this.players[i].evaluateBid(this.lastBid);
                 }
         }
-        this.turn = nextTurn;
     }  
-    
-    // <!-- Statement Methods --!>
-    challengeBidStatement(challenger, bidder) {
-        let text = this.settings.statements['challenge'];
-        text = text.replace("CHALLENGER", challenger.name);
-        text = text.replace("BIDDER", bidder.name);
-        this.commentary += text + "<br>";
-    }
-    outcomeBidStatement(loser, bid) {
-        let text = bid ? this.settings.statements['trueBid'] : this.settings.statements['falseBid'];
-        this.commentary += text + "<br>";
-
-        text = this.settings.statements['lostDie'];
-        if (!loser.active) {
-            text += this.settings.statements["leavesTable"];
-        }
-        this.commentary += text.replace(/PLAYER/g, loser.name) + "<br>";
-    }
 } 

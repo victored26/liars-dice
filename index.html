@@ -97,7 +97,7 @@
       cursor: default;
     }
 
-    .portraitRow, .diceRow {
+    .portraitRow, .diceRow, #bidAndReal {
       display: flex;
       text-align: center;
     }
@@ -141,7 +141,7 @@
       color: #041a6b;
     }
 
-    #userActions {
+    #userActions, #bid {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
@@ -238,29 +238,30 @@
 
       <div class="portrait" id="npc1">
         <img src="./images/npc_1/one.PNG" id="npc1Img" class="center">
-        <p id="npc1Name" style="color:red"></p>
+        <p id="npc1Name" style="color:red;"></p>
         <div class="diceRow" id="npc1DiceLeft">
         </div>
       </div>
 
       <div class="portrait" id="npc2">
         <img src="./images/npc_2/eight.PNG" id="npc2Img" class="center">
-        <p id="npc2Name" style="color:green"></p>
+        <p id="npc2Name" style="color:green;"></p>
         <div class="diceRow" id="npc2DiceLeft">
         </div>
       </div>
 
       <div class="portrait" id="npc3">
         <img src="./images/npc_3/two.PNG" id="npc3Img" class="center">
-        <p id="npc3Name" style="color:rgb(93, 6, 93)"></p>
+        <p id="npc3Name" style="color:rgb(93, 6, 93);"></p>
         <div class="diceRow" id="npc3DiceLeft">
         </div>
       </div>
-
     </div>
+    
+    <hr><br>
 
-    <div id="commentary">
-      <p id="curPlayer" style=text-align:center></p>
+    <div id="commentary" style="text-align:center">
+      <p id="curPlayer"></p>
       <p id="curUpdate"></p>
     </div>
 
@@ -280,7 +281,7 @@
       </div><br><hr>
 
       <img src="/images/user/six.PNG" id="userImg" class="center">
-      <p id="userNameDisplay" style ="text-align: center;">Bruno</p>
+      <p id="userNameDisplay" style ="text-align: center;"></p>
       <div class="diceRow" id="userRoll"></div><br>
     </div>
 

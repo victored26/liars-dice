@@ -1,8 +1,6 @@
 import LiarsDice from './liars-dice.js'
 
 const play = document.getElementById("startGame");
-const portraits = document.querySelectorAll(".portrait");
-const commentary = document.getElementById("commentary");
 const userBid = document.getElementById("userBid"); 
 const nextTurn = document.getElementById("continue");
 const curPlayer = document.getElementById("curPlayer");
@@ -38,19 +36,29 @@ function beginGame() {
     const userName = document.getElementById("userName");
     const userNameDisplay = document.getElementById("userNameDisplay");
     if (userName.value != "") {
-        game.user.name = userName.value;
-        userNameDisplay.innerText = userName.value;
+        game.user.name = userName.value.toUpperCase();
     }
+    userNameDisplay.innerText = game.user.name;
 
     // Hide the menu and display the game
     const menu = document.getElementById("menu");
     const gamePage = document.getElementById("game");
     menu.style.display = "none";
     gamePage.style.display = "initial";
-    showNPCPortraits();
+    userBid.style.display = "none";
+    showNPCs();
 
     // Start the game
     startTurn();
+}
+
+function assignTurn() {
+    /* Assigns current turn to either the user or an npc */
+    if (game.turn != 0) {
+        npcTurn();
+    } else {
+        userTurn();
+    }
 }
 
 function proceed() {
@@ -61,13 +69,8 @@ function proceed() {
         if (game.turnOver) {
             startTurn();
         } else {
-            game.turn++;
-            game.turn %= game.numPlayers;
-            if (game.turn != 0) {
-                npcTurn();
-            } else {
-                userTurn();
-            }
+            game.nextTurn();
+            assignTurn();
         }
     }
 }
@@ -76,6 +79,7 @@ function userChallengeBid() {
     /* Challenges previous bid if user is not the first bidder of the round */
     if (challengeBid.className == "enabled") {
         challengeBid.className = "disabled";
+        userBid.style.display = "none";
         endTurn();
     }
 }
@@ -83,43 +87,38 @@ function userChallengeBid() {
 function placeBid() {
     /* Places bid if it is the user's turn and the bid is valid */
     if (makeBid.className == "enabled") {
+        makeBid.className = "disabled";
         let face = document.querySelector('input[name="userFace"]:checked').value;
         let validNumber = (Number(bidNum.value) >= Number(bidNum.min));
         validNumber = validNumber && (Number(bidNum.value) <= Number(bidNum.max));
         if (face != null && validNumber){
             game.userMakeBid(Number(bidNum.value), Number(face));
-            curUpdate.innerHTML = placeBidUpdate(Number(bidNum.value), Number(face));
+            curUpdate.innerHTML = showBid();
             nextTurn.className = "enabled";
         }
+        userBid.style.display = "none";
     }
 }
 
 function startTurn(){
     /* Sets up the new game turn*/
-
-    // Display how many dice each player has left
-    showDiceLeft();
-
-    // Display what the user rolled
     game.startTurn();
     showUserRoll();
-
-    // Assign whose turn to play it is
-    if (game.turn != 0) {
-        npcTurn();
-    } else {
-        userTurn();
-    }
+    assignTurn();
 }
 
 function userTurn(){
     /* Displays the bid options and allows for the user to place a bid */
-    curPlayer.innerHTML = `<u>${game.user.name}:<u>`;
-    curUpdate.innerHTML = null;
     userBid.style.display = "block";
+    curPlayer.innerHTML = `<u>${game.user.name}<u>`;
+    curUpdate.innerHTML = null;
     showNumOptions();
     showFaceOptions();
     makeBid.className = "enabled";
+    if (game.lastBid['number'] > 0) {
+        game.npcsEvaluateBid();
+        challengeBid.className = "enabled";
+    }
 }
 
 function showNumOptions(){
@@ -150,25 +149,34 @@ function showFaceOptions() {
 }
 
 function npcTurn() {
-    userBid.style.display = "none";
+    /* Simulates npc turn and displays their action */
+    curPlayer.innerHTML = `<u>${game.players[game.turn].name}<u>`;
     game.npcTurn();
-    if (game.turnOver) {
-        endTurn();
+    if (!game.turnOver) {
+        curUpdate.innerHTML = showBid();
+        nextTurn.className = "enabled";
     } else {
-        challengeBid.className = "enabled";
-        userTurn();
+        endTurn();
     }
-    commentary.innerHTML = game.commentary;
+    
 }
 
 function endTurn() {
-    game.bidCheck();
+    bidCheck();
     game.endTurn();
-    game.checkEndGame();
-    commentary.innerHTML = game.commentary;
+    game.checkGameOver();
     if (!game.gameOver) {
         nextTurn.className = "enabled";
     } 
+}
+
+function bidCheck() { 
+    game.bidCheck();
+    let bidBool = game.bid, loser = game.loser;
+    curUpdate.innerHTML = game.settings.statements['challenge'];
+    curUpdate.innerHTML += showBidAndRolled();
+    curUpdate.innerHTML += `${game.settings.statements[bidBool.toString()]}`;
+    losesDie(loser);
 }
 function showUserRoll(){
     let path;
@@ -184,46 +192,69 @@ function showUserRoll(){
     }
 }
 
-function showNPCPortraits() {
-    let roll;
-    let path;
-    for (let n = 1; n < game.numPlayers; n++) {
+function showNPCs() {
+    /* Displays NPCs' portraits and number of dice they start with.
+    The NPC portraits are chosen at random from their image list. */
+    let roll = 0, portSrc = "", diceContainer = "", diceSrc = "";
+    for (let n = 1; n < game.settings.numPlayers; n++) {
+        // Portrait
         roll = Math.floor(Math.random()*8 + 1);
-        path = game.settings.portraits[roll].replace("npc_x", `npc_${n}`);
-        document.getElementById(`npc${n}Img`).src = path;
+        portSrc = game.settings.portraits[roll].replace("npc_x", `npc_${n}`);
+        document.getElementById(`npc${n}Img`).src = portSrc;
         document.getElementById(`npc${n}Name`).innerText = game.players[n].name;
-    }
-    portraits.forEach(portrait => {
-        portrait.style.display = 'initial';
-    });
-}
 
-function showDiceLeft() {
-    let imgSrc;
-    let container;
-    for (let n = 1; n < game.numPlayers; n++) {
-        container = document.getElementById(`npc${n}DiceLeft`);
-        container.innerHTML = "";
-        imgSrc = game.settings.diceLeft[n]
+        // Dice
+        diceContainer = document.getElementById(`npc${n}DiceLeft`);
+        diceSrc = game.settings.diceLeft[n];
         for (let die = 1; die < game.players[n].numDice + 1; die++) {
-            container.innerHTML += `<img src=${imgSrc} class="diceLeft">`
+            diceContainer.innerHTML += `<img id="npc_${n}:${die}"  src=${diceSrc} class="diceLeft">`;
         }
     }
 }
 
-function npcLeftTheTable(id) {
-    document.getElementById(`npc${id}Img`).style.opacity = 0.7;
+function losesDie(loser) {
+    /* Removes one die from the loser of a turn. If the player has
+    no more dice left, that player becomes inactive */
+    let die = document.getElementById(`npc_${loser.id}:${loser.numDice + 1}`);
+    die.style.opacity = 0.25;
+    if (loser.numDice == 0) {
+        document.getElementById(`npc${loser.id}Img`).style.opacity = 0.5;
+    }
 }
 
-function placeBidUpdate(num, face) {
-    let text = "";
-    if (num > 1) {
-        text += game.settings.statements['pluralBid'].replace("NUM", num);
-    } else {
-        text += game.settings.statements['singleBid'].replace("NUM", num);
+function showBid() {
+    /* Displays the current bid */
+    let num = game.lastBid['number'], face = game.lastBid['face'];
+    let htmlText = `<p style="text:align:center; color:black">${num}</p>`;
+    htmlText += `<div id="bid">`;
+    for (let n = 1; n < num + 1; n++) {
+        htmlText += `<img src="${game.settings.dieImages[face]}"`;
+        htmlText += `style="width:30px;height:30px;"></img>`;
     }
-    text += `<img src="${game.settings.dieImages[face]}"`;
-    text += `style="vertical-align: middle;width:20px;height:20px;"`;
-    text += "></img>";
-    return text
-} 
+    return htmlText + "</div>"
+}
+
+function showBidAndRolled() {
+    /* Displays the current bid next to the amount on the table */
+    let htmlText = `<div id="bidAndReal">`;
+    let bidNum = game.lastBid['number'], face = game.lastBid['face'];
+    let realNum = game.totalRolled[face];
+
+    // Bid Section
+    htmlText += `<figure style="flex: 50%;">`;
+    htmlText += `<figcaption>BID</figcaption>`
+    htmlText += `<img src="${game.settings.dieImages[face]}"`;
+    htmlText += `style="width:30px;height:30px;"></img>`;
+    htmlText += `<figcaption>${bidNum}</figcaption>`
+    htmlText += `</figure>`;
+
+    // Correct Section
+    htmlText += `<figure style="flex: 50%;">`;
+    htmlText += `<figcaption>CORRECT</figcaption>`
+    htmlText += `<img src="${game.settings.dieImages[face]}"`;
+    htmlText += `style="width:30px;height:30px;"></img>`;
+    htmlText += `<figcaption>${realNum}</figcaption>`
+    htmlText += `</figure>`;
+
+    return htmlText + `<div>`
+}

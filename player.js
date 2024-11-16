@@ -1,4 +1,5 @@
 export default class Player {
+    static id = 0;
     static totalDice = 0;
     static totalRolled = {};
     constructor(game, name="Player") {
@@ -6,6 +7,7 @@ export default class Player {
         this.active = true;
         this.settings = game.settings;
         this.name = name;
+        this.id = Player.id++;
         this.numDice = this.settings.numDice;
         Player.totalDice += this.numDice;
         this.endTurn();

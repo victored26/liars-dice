@@ -3,6 +3,7 @@ export default class Settings {
         // Game Settings
         this.numDice = 5;
         this.faces = 6;
+        this.numPlayers = 4;
 
         // Game Images
         this.dieImages = {
@@ -43,11 +44,9 @@ export default class Settings {
             6: "six"
         }
         this.statements = {
-            'singleBid': "There is NUM",
-            'pluralBid': "There are NUM",
-            'challenge': "CHALLENGER challenges BIDDER's bid",
-            'trueBid': "The bid was not false",
-            'falseBid': "The bid was false",
+            'challenge': "CHALLENGES THE BID",
+            'true': "BID WAS NOT FALSE",
+            'false': "BID WAS FALSE",
             'lostDie': "PLAYER loses a die",
             'leavesTable': "PLAYER has lost all their dice. They leave the table",
             'win': "You are the only player left on the table. You win!",
