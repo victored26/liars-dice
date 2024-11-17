@@ -1,0 +1,168 @@
+p, h1, h3, input[type=text], #startGame, buttons {
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 2px;
+    line-height: 1.5;
+    color: blue
+}
+
+h1, h3, input[type=text]{
+    text-align: center;
+}
+
+input[type=text] {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 3px solid #2643a8;
+    border-radius: 10px;
+    background-color: #b5faff;
+    font-size: medium;
+    font-weight: bold;
+    color: #041a6b;
+}
+
+input[type="radio"]{
+    visibility: hidden;
+    height: 0;
+    width: 0;
+}
+
+label {
+    cursor: pointer;
+    filter: grayscale(100%);
+    opacity: 0.5;
+}
+
+label:hover {
+    filter: grayscale(0);
+    opacity: 1;
+}
+
+input[type="radio"]:checked + label {
+    filter: grayscale(0);
+    opacity: 1;
+}
+
+.portraitOption {
+    border-radius: 50%;
+    width: 7%;
+}
+
+#startGame {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fa4d84;
+    color: #000102;
+}
+
+#startGame:hover {
+    background-color: #b2033b; 
+    color: white;
+}
+
+button {
+    cursor: pointer;
+    transition-duration: 0.4s;
+    padding: 12px 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-weight: bold;
+    font-size: large;
+}
+
+.enabled:hover, .dice:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+#challengeBid {
+    background-color: #e66a6a;
+}
+
+#challengeBid.enabled:hover {
+    background-color: #9e3a3a;
+    color: white;
+}
+
+#makeBid {
+    background-color: #87e18a;
+}
+
+#makeBid.enabled:hover {
+    background-color:  #479249;
+    color: white;
+}
+
+#continue {
+    background-color: rgb(199, 157, 237);
+}
+
+#continue.enabled:hover {
+    background-color:  rgb(134, 65, 199);
+    color: white;
+}
+
+.portraitRow, .diceRow, #bidAndReal {
+    display: flex;
+    text-align: center;
+}
+
+.portrait {
+    flex: 33.33%;
+    padding: 5px;
+}
+  
+.center, .diceLeft {
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.diceLeft {
+    width: 20px;
+    height: 20px;
+    border-radius: 0%;
+    border: 2px solid;
+}
+
+.dice {
+    width: 40px;
+    height: 40px;
+}
+
+#commentary {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 3px solid #2643a8;
+    border-radius: 10px;
+    background-color: #b5faff;
+    font-size: medium;
+    font-weight: bold;
+    color: #041a6b;
+}
+
+#userActions, #bid {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#user {
+    position:fixed;
+    left:0px;
+    bottom:2%;
+    width:100%;
+}
