@@ -88,29 +88,28 @@
   <div id="game">
     <div class="portraitRow">
 
-      <div class="portrait" id="npc1">
+      <figure class="portrait" id="npc1">
         <img src="./images/npc_1/one.png" id="npc1Img" class="center">
-        <p id="npc1Name" style="color:red;"></p>
+        <figcaption id="npc1Name" style="color:red;"></figcaption>
         <div class="diceRow" id="npc1DiceLeft">
         </div>
-      </div>
+      </figure>
 
-      <div class="portrait" id="npc2">
+      <figure class="portrait" id="npc2">
         <img src="./images/npc_2/eight.png" id="npc2Img" class="center">
-        <p id="npc2Name" style="color:green;"></p>
+        <figcaption id="npc2Name" style="color:green;"></figcaption>
         <div class="diceRow" id="npc2DiceLeft">
         </div>
-      </div>
+      </figure>
 
-      <div class="portrait" id="npc3">
+      <figure class="portrait" id="npc3">
         <img src="./images/npc_3/two.png" id="npc3Img" class="center">
-        <p id="npc3Name" style="color:rgb(93, 6, 93);"></p>
+        <figcaption id="npc3Name" style="color:rgb(93, 6, 93);"></figcaption>
         <div class="diceRow" id="npc3DiceLeft">
         </div>
-      </div>
+      </figure>
+
     </div>
-    
-    <hr><br>
 
     <div id="commentary" style="text-align:center">
       <p id="curPlayer"></p>
@@ -125,16 +124,19 @@
         <br><br>
         <form id="selectFace"></form><br>
       </div>
-      
-      <div id="userActions">
-        <button class="disabled" id="challengeBid" style="width: 20%;">Challenge Bid</button>
-        <button class="disabled" id="makeBid" style="width: 20%;">Make Bid</button>
-        <button class="disabled" id="continue" style="width: 20%;">Continue</button>
-      </div><br><hr>
 
-      <img src="/images/user/six.png" id="userImg" class="center">
-      <p id="userNameDisplay" style ="text-align: center;"></p>
-      <div class="diceRow" id="userRoll"></div><br>
+      <div id="userActions">
+        <button class="disabled" id="challengeBid" style="width: 13.3%;">Challenge</button>
+        <button class="disabled" id="makeBid" style="width: 13.3%;">Make Bid</button>
+        <button class="disabled" id="continue" style="width: 13.3%;">Continue</button>
+      </div><hr>
+
+      <div class="diceRow" id="userRoll"></div>
+      <figure>
+        <img src="/images/user/six.png" id="userImg" class="center">
+        <figcaption id="userNameDisplay"></figcaption>
+      </figure>
+      
     </div>
 
   </div>

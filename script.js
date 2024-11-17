@@ -196,7 +196,7 @@ function showUserRoll(){
         }
         for (let count = 1; count < game.userRolled[face] + 1; count++) {
             path = game.settings.dieImages[face];
-            userRoll.innerHTML += `<img src=${path} class="diceLeft">`;
+            userRoll.innerHTML += `<img src=${path} class="userRoll">`;
         }
     }
 }
@@ -238,7 +238,7 @@ function showBid() {
     htmlText += `<div id="bid">`;
     for (let n = 1; n < num + 1; n++) {
         htmlText += `<img src="${game.settings.dieImages[face]}"`;
-        htmlText += `style="width:30px;height:30px;"></img>`;
+        htmlText += `class="dice"></img>`;
     }
     return htmlText + "</div>"
 }
@@ -253,7 +253,7 @@ function showBidAndRolled() {
     htmlText += `<figure style="flex: 50%;">`;
     htmlText += `<figcaption>BID</figcaption>`
     htmlText += `<img src="${game.settings.dieImages[face]}"`;
-    htmlText += `style="width:30px;height:30px;"></img>`;
+    htmlText += `style="width:20px;height:20px;"></img>`;
     htmlText += `<figcaption>${bidNum}</figcaption>`
     htmlText += `</figure>`;
 
@@ -261,7 +261,7 @@ function showBidAndRolled() {
     htmlText += `<figure style="flex: 50%;">`;
     htmlText += `<figcaption>CORRECT</figcaption>`
     htmlText += `<img src="${game.settings.dieImages[face]}"`;
-    htmlText += `style="width:30px;height:30px;"></img>`;
+    htmlText += `style="width:20px;height:20px;"></img>`;
     htmlText += `<figcaption>${realNum}</figcaption>`
     htmlText += `</figure>`;
 
