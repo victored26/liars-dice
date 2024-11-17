@@ -48,7 +48,7 @@ input[type="radio"]:checked + label {
 
 .portraitOption {
     border-radius: 50%;
-    width: 7%;
+    width: 10%;
 }
 
 #startGame {
