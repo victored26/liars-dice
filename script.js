@@ -90,11 +90,11 @@ function userChallengeBid() {
 function placeBid() {
     /* Places bid if it is the user's turn and the bid is valid */
     if (makeBid.className == "enabled") {
-        makeBid.className = "disabled";
         let face = document.querySelector('input[name="userFace"]:checked').value;
         let validNumber = (Number(bidNum.value) >= Number(bidNum.min));
         validNumber = validNumber && (Number(bidNum.value) <= Number(bidNum.max));
         if (face != null && validNumber){
+            makeBid.className = "disabled";
             game.userMakeBid(Number(bidNum.value), Number(face));
             curUpdate.innerHTML = showBid();
             nextTurn.className = "enabled";
