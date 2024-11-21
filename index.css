@@ -1,3 +1,7 @@
+body {
+    background-color:#fae8f2;
+}
+
 p, h1, h3, input[type=text], #startGame, buttons, figcaption {
     font-family: 'Courier New', Courier, monospace;
     letter-spacing: 2px;
@@ -48,7 +52,7 @@ input[type="radio"]:checked + label {
 
 .portraitOption {
     border-radius: 50%;
-    width: 10%;
+    width: 8%;
 }
 
 #startGame {
